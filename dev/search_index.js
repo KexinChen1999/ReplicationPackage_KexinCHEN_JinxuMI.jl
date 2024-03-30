@@ -1,0 +1,3 @@
+var documenterSearchIndex = {"docs":
+[{"location":"","page":"Home","title":"Home","text":"CurrentModule = ReplicationPackage_KexinCHEN_JinxuMI","category":"page"},{"location":"#ReplicationPackage*KexinCHEN*JinxuMI","page":"Home","title":"ReplicationPackageKexinCHENJinxuMI","text":"","category":"section"},{"location":"","page":"Home","title":"Home","text":"Documentation for ReplicationPackageKexinCHENJinxuMI.","category":"page"},{"location":"","page":"Home","title":"Home","text":"","category":"page"},{"location":"","page":"Home","title":"Home","text":"Modules = [ReplicationPackage_KexinCHEN_JinxuMI]","category":"page"}]
+}
