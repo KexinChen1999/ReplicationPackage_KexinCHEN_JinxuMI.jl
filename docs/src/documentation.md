@@ -58,7 +58,7 @@ Pkg.add(url="https://github.com/KexinChen1999/LR_market.jl")
 
 # Usage
 
-To show how the `ReplicationPackage_KexinCHEN_JinxuMI` package can be used, several Julia packages are required to be installed and used, including `Pkg`, `Printf`, `MAT, `Distributions`, `LinearAlgebra`, `Statistics`, `DelimitedFiles`, `Optim`, `NLsolve`, `Plots`, `Serialization`, `CSV`, and `DataFrames`. Also, we assume you have already installed `ReplicationPackage_KexinCHEN_JinxuMI` as described above.
+To show how the `ReplicationPackage_KexinCHEN_JinxuMI` package can be used, several Julia packages are required to be installed and used, including `Pkg`, `Printf`, `MAT`, `Distributions`, `LinearAlgebra`, `Statistics`, `DelimitedFiles`, `Optim`, `NLsolve`, `Plots`, `Serialization`, `CSV`, and `DataFrames`. Also, we assume you have already installed `ReplicationPackage_KexinCHEN_JinxuMI` as described above.
 
 First, we focus on the the Calibration of Benchmark Economy (BE) part and define the `BE_eval` function:
 
