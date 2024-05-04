@@ -139,7 +139,7 @@ LN          = AFS*(1-hired_lab_sh);
 KAPPAc      = 1.25
 ```
 
-Additional parameters
+Additional parameters:
 ```julia
 params = [A] 
 ```
@@ -290,12 +290,12 @@ end
 
 The function `LR_main_eval` does the same thing as `BE_eval` but under the condition of government-mandated land reform.
 
-Initial Guess
+Initial Guess:
 ```julia
 guess  = [0.7]
 ```
 
-Additional parameters
+Additional parameters:
 ```julia
 params = [A] 
 ```
@@ -393,12 +393,12 @@ end
 
 The function `LR_main_eval` does the same thing as `BE_eval` but under the condition of market-based reform in distributing the land above the government-mandated ceiling.
 
-Initial Guess
+Initial Guess:
 ```julia
 guess  = [0.88 0.09]
 ```
 
-Additional parameters
+Additional parameters:
 ```julia
 params = [A] 
 ```
@@ -407,6 +407,7 @@ params = [A]
 result = nlsolve(x -> LR_market_eval(x, A), guess) 
 ```
 
+Extracting the solution:
 ```julia
 w = result.zero[1]
 q = result.zero[2]
