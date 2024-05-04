@@ -116,7 +116,16 @@ function BE_eval(x, A)
 end
 ```
 
-`BE_eval` function will default to using an adaptive differential evolution optimizer in this case and use it to try to locate a solution where both elements can be Floats in the range -5.0:5.0. If you wanted a different range of allowed values for the second dimension of the solution you can specify that with a range of allowed values. In this case, you do not need to specify the number of dimensions since that is implicit from the number of ranges supplied:
+<p align="justify"> The `BE_eval` function defines the market-clearing conditions of our optimization problem. It acts as the constraint in our final step of optimization. The function first determines cutoff points (g_lbar and g_ubar) for choosing between food farming, cash crop farming, and possibly other occupations. These are calculated based on cumulative distribution functions and certain market share thresholds. Then it performs factor price calculations. It computes the wages (w) and another price factor (q), based on the model equations which involve ratios of prices, costs, and technological parameters. Then, it derives the occupational Vectors. It creates vectors that define whether individuals choose food farming, cash crop farming, or neither based on the earlier calculated g-cutoffs. After that, it calculates individual productivity and income by deriving labor and capital inputs (lf_vec, lc_vec, nf_vec, nc_vec), outputs (yf_vec, yc_vec), and profits (PIf_vec, PIc_vec) for each individual, adjusted by their ability, soil quality, and chosen occupation. Finally, it derives the aggregates and market clearing conditions. It computes total outputs, labor shares, and productivity ratios for the entire economy. It ensures that the land and labor markets are clear, i.e., total demand for land and labor matches supply. The returned values are a vector f containing the residuals of the market clearing conditions for land and labor. These residuals are used to assess how well the model's assumptions and parameters fit the actual economic conditions. </p>
+
+
+To solve the system, we used an anonymous function to pass extra parameters to BE_eval
+
+```julia
+result = nlsolve((res, x) -> res .= BE_eval(x, params), guess, show_trace=true, xtol=1e-16)
+```
+
+
 
 
 
@@ -167,6 +176,29 @@ function LR_main_eval(x, A)
 
     return f
 end
+```
+
+`LR_main_eval` function will default to using an adaptive differential evolution optimizer in this case and use it to try to locate a solution where both elements can be Floats in the range -5.0:5.0. If you wanted a different range of allowed values for the second dimension of the solution you can specify that with a range of allowed values. In this case, you do not need to specify the number of dimensions since that is implicit from the number of ranges supplied:
+
+
+
+```julia
+result = nlsolve((res, x) -> res .= LR_main_eval(x, params), guess, show_trace=true, xtol=1e-16)
+```
+
+Solve farmer's problem:
+```julia
+nf_vec = ((1 .- ALPHA) .* GAMMA .* (Pf ./ w) .* ((A .* KAPPAf .* g_vec) .^ (1 .- GAMMA)) .* (l_vec .^ (ALPHA .* GAMMA))) .^ (1 ./ (1 .- GAMMA * (1 .- ALPHA)))
+nc_vec = ((1 .- ALPHA) .* GAMMA .* (Pc ./ w) .* ((A .* KAPPAc .* g_vec) .^ (1 .- GAMMA)) .* (l_vec .^ (ALPHA .* GAMMA))) .^ (1 ./ (1 .- GAMMA * (1 .- ALPHA)))
+yf_vec = (A .* KAPPAf .* s_vec) .^ (1 .- GAMMA) .* (l_vec .^ ALPHA .* nf_vec .^ (1 .- ALPHA)) .^ GAMMA
+yc_vec = (A .* KAPPAc .* s_vec) .^ (1 .- GAMMA) .* (l_vec .^ ALPHA .* nc_vec .^ (1 .- ALPHA)) .^ GAMMA
+PIf_vec = (1 .- GAMMA .* (1 .- ALPHA)) .* Pf .* yf_vec .* (phi_vec .^ (1 .- GAMMA)) .- Pf .* Cf .* ones(length(N))
+PIc_vec = (1 .- GAMMA .* (1 .- ALPHA)) .* Pc .* yc_vec .* (phi_vec .^ (1 .- GAMMA)) .- Pc .* Cc .* ones(length(N))
+```
+
+
+```julia
+
 ```
 
 
@@ -242,6 +274,7 @@ function LR_market_eval(x, A)
 end
 ```
 
+`LR_market_eval` function will default to using an adaptive differential evolution optimizer in this case and use it to try to locate a solution where both elements can be Floats in the range -5.0:5.0. If you wanted a different range of allowed values for the second dimension of the solution you can specify that with a range of allowed values. In this case, you do not need to specify the number of dimensions since that is implicit from the number of ranges supplied:
 
 
 
