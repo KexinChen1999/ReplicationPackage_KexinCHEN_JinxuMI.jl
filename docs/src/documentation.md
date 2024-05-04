@@ -7,7 +7,7 @@ CurrentModule = ReplicationPackage_KexinCHEN_JinxuMI
 Documentation for [ReplicationPackage_KexinCHEN_JinxuMI](https://github.com/KexinChen1999/ReplicationPackage_KexinCHEN_JinxuMI.jl).
 
 We replicate the simulations of the three models of land distribution after reform in the original paper[(Adamopoulos & Restuccia, 2020)](https://www.aeaweb.org/articles?id=10.1257/mac.20150222). 
-<p align="justify"> The original models are calibrated and simulated in Matlab, while we used Julia (http://julialang.org/), an open source, free of charge computational lanaguage, to replicate the paper. Our work provides a new way to use the model in the original paper without buying a liscense from MathWorks. The package sheds new light on using Julia to estimate the effects of land reforms. </p>
+<p align="justify"> The original models are calibrated and simulated in Matlab, while we used Julia (http://julialang.org/), an open source, free of charge computational lanaguage, to replicate the paper. Our work provides a new way to use the model in the original paper without buying a liscense from MathWorks. Furthermore, our results can also be used to verify the original article. </p>
 
 
 
@@ -120,12 +120,11 @@ end
 <p align="justify"> The BE_eval function defines the market-clearing conditions of our optimization problem. It acts as the constraint in our final step of optimization. The function first determines cutoff points (g_lbar and g_ubar) for choosing between food farming, cash crop farming, and possibly other occupations. These are calculated based on cumulative distribution functions and certain market share thresholds. Then it performs factor price calculations. It computes the wages (w) and another price factor (q), based on the model equations which involve ratios of prices, costs, and technological parameters. Then, it derives the occupational Vectors. It creates vectors that define whether individuals choose food farming, cash crop farming, or neither based on the earlier calculated g-cutoffs. After that, it calculates individual productivity and income by deriving labor and capital inputs (lf_vec, lc_vec, nf_vec, nc_vec), outputs (yf_vec, yc_vec), and profits (PIf_vec, PIc_vec) for each individual, adjusted by their ability, soil quality, and chosen occupation. Finally, it derives the aggregates and market clearing conditions. It computes total outputs, labor shares, and productivity ratios for the entire economy. It ensures that the land and labor markets are clear, i.e., total demand for land and labor matches supply. The returned values are a vector f containing the residuals of the market clearing conditions for land and labor. These residuals are used to assess how well the model's assumptions and parameters fit the actual economic conditions. </p>
 
 
-To solve the system, we used an anonymous function to pass extra parameters to `BE_eval`
+<p align="justify"> Then we use nlsolve function to find the numerical solutions of our non-linear system of equations. Given the market-clearing conditions calculated from BE_eval() and specified set of varaibles we are interested in,  the algorithms uses numerical methods to approximate the roots of multiple equations simultaneously. We can derive the optimal distribution of lands and labor from the results of the optimization. </p>
 
 ```julia
 result = nlsolve((res, x) -> res .= BE_eval(x, params), guess, show_trace=true, xtol=1e-16)
 ```
-
 
 
 
