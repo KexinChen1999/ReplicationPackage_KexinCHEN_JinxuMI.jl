@@ -17,6 +17,7 @@ Modules = [ReplicationPackage_KexinCHEN_JinxuMI]
 
 
 # Summary of the Paper
+<div style="text-align: justify;">
 The paper's primary purpose is to assess the effects of a significant land reform on agricultural productivity in the Philippines. The 1988 Comprehensive Agrarian Reform Program put a ceiling on the quantity of private land holdings, leading to a drop in farm size and productivity. Using the Decennial Agricultural Census Data and Philippines Cash Cropping Project survey data, the authors can construct balanced panel data that tracks the farm-level changes before and after the reform, controlling for farmer ability and location.
 
 The Philippines' 1988 Comprehensive Agrarian Reform Law put a 5-hectare ceiling on individual land ownership. The redistribution at fair market value was implemented by the end of 1990. The data show that land redistribution led to a -11.6 \% decrease in land productivity from 1990 to 1993. Even though the ceiling was not perfectly implemented, this study still discovered a significant change in farm size. The share of small farms almost doubled while the share of more giant farms shrank. This phenomenon was verified by farm-level survey data as well.
@@ -30,7 +31,7 @@ After parameterization, the authors calibrate the model and match the parameters
 This work clearly shows that government-mandated land reform leads to a drop in farm size, agricultural labor productivity, and share of landless farmers, and the drop is increasing as enforcement gets more strict. The mechanism of government-mandated reform is driven by the redistribution based on land holding, not productivity. The increase in landed farmers working on food crop farms reduces productivity, labor shortage, and higher wages, which will spill over to the cash crop sector, leading to lower-ability cash croppers switching to food crops. The market-based reform mechanism reduces the holding of all constrained farmers, reducing land rents and wages. Every unconstrained farmer can raise their demand for labor and land. Low factor prices also increase cash crops' relative profits, encouraging more food crop farmers to switch to cash crops. Meanwhile, long-term productivity growth can be explained by other exogenous factors. The adverse effects are also shown by reduced form regression analysis.
 
 The significant contribution of the paper is that it focuses on a specific farm-size land reform distortion using micro-level data; the occupational and technological choices between food and cash crops caused by the distortion were another primary focus of the paper. It sheds new light on the existing literature about land reform and agricultural productivity, especially the role of ownership reform.
-
+</div>
 
 
 
