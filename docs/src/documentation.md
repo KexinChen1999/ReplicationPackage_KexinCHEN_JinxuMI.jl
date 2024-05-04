@@ -300,6 +300,10 @@ Additional parameters:
 params = [A] 
 ```
 
+
+<p align="justify"> Then we use nlsolve function to find the numerical solutions of our non-linear system of equations. Given the market-clearing conditions calculated from LR_main_eval() and specified set of varaibles we are interested in, the algorithms uses numerical methods to approximate the roots of multiple equations simultaneously. We can derive the optimal distribution of lands and labor from the optimization results. </p>
+
+
 ```julia
 result = nlsolve((res, x) -> res .= LR_main_eval(x, params), guess, show_trace=true, xtol=1e-16)
 ```
@@ -402,6 +406,8 @@ Additional parameters:
 ```julia
 params = [A] 
 ```
+
+<p align="justify"> Then we use nlsolve function to find the numerical solutions of our non-linear system of equations. Given the market-clearing conditions calculated from LR_market_eval() and specified set of varaibles we are interested in, the algorithms uses numerical methods to approximate the roots of multiple equations simultaneously. We can derive the optimal distribution of lands and labor from the optimization results. </p>
 
 ```julia
 result = nlsolve(x -> LR_market_eval(x, A), guess) 
