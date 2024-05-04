@@ -61,6 +61,7 @@ Pkg.add(url="https://github.com/KexinChen1999/LR_market.jl")
 
 To show how the `ReplicationPackage_KexinCHEN_JinxuMI` package can be used, several Julia packages are required to be installed and used, including `Pkg`, `Printf`, `MAT`, `Distributions`, `LinearAlgebra`, `Statistics`, `DelimitedFiles`, `Optim`, `NLsolve`, `Plots`, `Serialization`, `CSV`, and `DataFrames`. Also, we assume you have already installed `ReplicationPackage_KexinCHEN_JinxuMI` as described above.
 
+## Calibration of Benchmark Economy
 First, we focus on the the Calibration of Benchmark Economy (BE) part and define the `BE_eval` function:
 
 ```julia
@@ -235,8 +236,8 @@ f2 = (sum(of_vec .* nf_vec) / N) + (sum(oc_vec .* nc_vec) / N) - Nw  # Labor mar
 f = [f1, f2]  # Construct the vector f from f1 and f2
 ```
 
-
-Second, we focus on the Goverment-mandated Land Reform (LR_main) part and define the `LR_main_eval` function:
+## Government-mandated Land Reform
+Second, we focus on the Government-mandated Land Reform (LR_main) part and define the `LR_main_eval` function:
 
 ```julia
 function LR_main_eval(x, A)
@@ -312,7 +313,7 @@ PIc_vec = (1 .- GAMMA .* (1 .- ALPHA)) .* Pc .* yc_vec .* (phi_vec .^ (1 .- GAMM
 ```
 
 
-
+## Market-based Land Reform
 Third, we focus on the Market-based Land Reform (LR_market) part and define the `LR_market_eval` function:
 
 ```julia
