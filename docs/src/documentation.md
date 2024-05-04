@@ -58,7 +58,67 @@ Pkg.add(url="https://github.com/KexinChen1999/LR_market.jl")
 
 # Usage
 
-To show how the `ReplicationPackage_KexinCHEN_JinxuMI` package can be used.
+To show how the `ReplicationPackage_KexinCHEN_JinxuMI` package can be used, several Julia packages are required to be installed and used, including Pkg, Printf, MAT, Distributions, LinearAlgebra, Statistics, DelimitedFiles, Optim, NLsolve, Plots, Serialization, CSV, and DataFrames. Also, we assume you have already installed `ReplicationPackage_KexinCHEN_JinxuMI` as described above.
+
+First, we focus on the the Calibration of Benchmark Economy (BE) part and define the `BE_eval` function:
+
+```julia
+function BE_eval(x, A)
+    global KAPPAc, KAPPAf, LN, g_vec, s_vec, phi_vec, Pc, Pf, GAMMA, ALPHA, N, Nw, hired_lab_sh, cash_oper_sh, cdf_g
+
+    Cf = x[1]
+    Cc = x[2]
+
+    # Compute occupational choice cutoffs
+    INl = findfirst(cdf_g .> hired_lab_sh)
+    g_lbar = g_vec[INl]
+    sh_l = cdf_g[INl]
+    g_lbar_Indic = findlast(g_vec .< g_lbar)
+
+    INu = findfirst(cdf_g .> (hired_lab_sh .+ (1 .- hired_lab_sh) .* (1 .- cash_oper_sh)))
+    g_ubar = g_vec[INu]
+    sh_u = cdf_g[INu]
+    g_ubar_Indic = findfirst(g_vec .> g_ubar)
+
+    # Factor prices - from model equations
+    w = (Cc .- Cf) ./ ((g_ubar ./ g_lbar) .* ((Pc ./ Pf).^(1 ./ (1 .- GAMMA)) .* (KAPPAc ./ KAPPAf) .- 1)) .- Cf
+    q = ALPHA .* ((g_lbar .* (GAMMA.^(GAMMA ./ (1 .- GAMMA))) .* (1 .- GAMMA) .* (((1 .- ALPHA) ./ w).^(GAMMA .* (1 .- ALPHA) ./ (1 .- GAMMA))) .* (Pf).^(1 ./ (1 .- GAMMA)) .* (A .* KAPPAf)) ./ (w .+ Cf)).^((1 .- GAMMA) ./ (ALPHA .* GAMMA))
+    qw_ratio = q ./ w
+
+    # Compute occupational choice vectors based on cutoffs
+    of_vec = zeros(Int, N)
+    of_vec[g_lbar_Indic+1:g_ubar_Indic] .= 1
+
+    oc_vec = zeros(Int, N)
+    oc_vec[g_ubar_Indic+1:end] .= 1
+
+    # Solve problem under each technology for every individual
+    lf_vec = ((ALPHA ./ q).^((1 .- (1 .- ALPHA) .* GAMMA) ./ (1 .- GAMMA))) .* (((1 .- ALPHA) ./ w).^(GAMMA .* (1 .- ALPHA) ./ (1 .- GAMMA))) .* ((GAMMA .* Pf).^(1 ./ (1 .- GAMMA))) .* (A .* KAPPAf) .* g_vec
+    lc_vec = ((ALPHA ./ q).^((1 .- (1 .- ALPHA) .* GAMMA) ./ (1 .- GAMMA))) .* (((1 .- ALPHA) ./ w).^(GAMMA .* (1 .- ALPHA) ./ (1 .- GAMMA))) .* ((GAMMA .* Pc).^(1 ./ (1 .- GAMMA))) .* (A .* KAPPAc) .* g_vec
+    nl_ratio = ((1 - ALPHA) ./ ALPHA) .* qw_ratio
+    nf_vec = nl_ratio .* lf_vec
+    nc_vec = nl_ratio .* lc_vec
+    yf_vec = (A * KAPPAf .* s_vec).^(1 - GAMMA) .* (lf_vec.^ALPHA .* nf_vec.^(1 .- ALPHA)).^GAMMA
+    yc_vec = (A * KAPPAc .* s_vec).^(1 - GAMMA) .* (lc_vec.^ALPHA .* nc_vec.^(1 .- ALPHA)).^GAMMA
+
+    # Compute aggregates using occupational choice vectors
+    Nw = sum(1 .- oc_vec .- of_vec) ./ N  # share of hired labor
+    Nf = sum(of_vec) ./ N  # share of food farm operators
+    Nc = sum(oc_vec) ./ N  # share of cash farm operators
+    LAB_f = (sum(of_vec .* nf_vec) ./ N) .+ Nf  # total share of labor in food farms (hired+operators)
+    LAB_c = (sum(oc_vec .* nc_vec) ./ N) .+ Nc  # total share of labor in cash farms (hired+operators)
+
+    # Clear land and labor markets
+    f1 = (sum(of_vec .* lf_vec) ./ N) + (sum(oc_vec .* lc_vec) ./ N) .- LN  # land market clearing condition
+    f2 = (sum(of_vec .* nf_vec) ./ N) + (sum(oc_vec .* nc_vec) ./ N) .- Nw  # labor market clearing condition
+
+    return [f1, f2]
+end
+```
+
+
+
+
 
 
 
