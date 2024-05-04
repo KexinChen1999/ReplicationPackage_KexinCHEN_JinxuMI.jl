@@ -395,9 +395,6 @@ The function `LR_main_eval` does the same thing as `BE_eval` but under the condi
 
 
 
-# Providing our results
-
-
 
 
 # Comparison with the original results
