@@ -209,6 +209,31 @@ PIc_vec = (1 - GAMMA) * Pc * yc_vec .* (phi_vec .^ (1 - GAMMA)) - Cc .* ones(N)
 ```
 
 
+Compute aggregates using occupational choice vectors:
+```julia
+# Labor Shares - based on occupational choices
+Nw = sum(1 .- oc_vec .- of_vec) / N  # Share of hired labor
+Nf = sum(of_vec) / N  # Share of food farm operators
+Nc = sum(oc_vec) / N  # Share of cash farm operators
+LAB_f = (sum(of_vec .* nf_vec) / N) + Nf  # Total share of labor in food farms (hired + operators)
+LAB_c = (sum(oc_vec .* nc_vec) / N) + Nc  # Total share of labor in cash farms (hired + operators)
+
+# Crop Outputs - based on occupational choices
+Yc = sum(oc_vec .* yc_vec) / N  # Total output of cash crop farms
+Yf = sum(of_vec .* yf_vec) / N  # Total output of food crop farms
+```
+
+Ratio of cash-to-food labor productivities (INCLUDES OPERATORS):
+```julia
+YNR_cf_model = (Yc / LAB_c) / (Yf / LAB_f)
+```
+
+Clear land and labor markets:
+```julia
+f1 = (sum(of_vec .* lf_vec) / N) + (sum(oc_vec .* lc_vec) / N) - LN  # Land market clearing condition
+f2 = (sum(of_vec .* nf_vec) / N) + (sum(oc_vec .* nc_vec) / N) - Nw  # Labor market clearing condition
+f = [f1, f2]  # Construct the vector f from f1 and f2
+```
 
 
 Second, we focus on the Goverment-mandated Land Reform (LR_main) part and define the `LR_main_eval` function:
