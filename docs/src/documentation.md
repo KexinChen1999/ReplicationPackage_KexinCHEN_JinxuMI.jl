@@ -15,8 +15,9 @@ Modules = [ReplicationPackage_KexinCHEN_JinxuMI]
 
 
 
-<div style="text-align: justify;">
+
 # Summary of the Paper
+<div style="text-align: justify;">
 
 The paper's primary purpose is to assess the effects of a significant land reform on agricultural productivity in the Philippines. The 1988 Comprehensive Agrarian Reform Program put a ceiling on the quantity of private land holdings, leading to a drop in farm size and productivity. Using the Decennial Agricultural Census Data and Philippines Cash Cropping Project survey data, the authors can construct balanced panel data that tracks the farm-level changes before and after the reform, controlling for farmer ability and location.
 
