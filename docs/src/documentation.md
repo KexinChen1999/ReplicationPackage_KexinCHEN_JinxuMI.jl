@@ -317,10 +317,6 @@ PIc_vec = (1 .- GAMMA .* (1 .- ALPHA)) .* Pc .* yc_vec .* (phi_vec .^ (1 .- GAMM
 ```
 
 
-```julia
-
-```
-
 
 ## Market-based Land Reform
 Third, we focus on the Market-based Land Reform (LR_market) part and define the `LR_market_eval` function:
@@ -411,7 +407,17 @@ params = [A]
 result = nlsolve(x -> LR_market_eval(x, A), guess) 
 ```
 
-Solve unconstrained problem under each technology for all individuals
+```julia
+w = result.zero[1]
+q = result.zero[2]
+```
+
+Factor price ratio:
+```julia
+qw_ratio = q / w
+```
+
+Solve unconstrained problem under each technology for all individuals:
 ```julia
 lf_vec = ((ALPHA / q)^((1 - (1 - ALPHA) * GAMMA) / (1 - GAMMA))) * (((1 - ALPHA) / w)^(GAMMA * (1 - ALPHA) / (1 - GAMMA))) * ((GAMMA * Pf)^(1 / (1 - GAMMA))) * ((A * KAPPAf) .* g_vec)
 lc_vec = ((ALPHA / q)^((1 - (1 - ALPHA) * GAMMA) / (1 - GAMMA))) * (((1 - ALPHA) / w)^(GAMMA * (1 - ALPHA) / (1 - GAMMA))) * ((GAMMA * Pc)^(1 / (1 - GAMMA))) * ((A * KAPPAc) .* g_vec)
@@ -422,6 +428,65 @@ yf_vec = (A * KAPPAf .* s_vec).^(1 - GAMMA) .* (lf_vec.^ALPHA .* nf_vec.^(1 - AL
 yc_vec = (A * KAPPAc .* s_vec).^(1 - GAMMA) .* (lc_vec.^ALPHA .* nc_vec.^(1 - ALPHA)).^GAMMA
 PIf_vec = (1 - GAMMA) * Pf * yf_vec .* (phi_vec.^(1 - GAMMA)) - Cf * ones(N)
 PIc_vec = (1 - GAMMA) * Pc * yc_vec .* (phi_vec.^(1 - GAMMA)) - Cc * ones(N)
+```
+
+Initialize constraint vectors for farmers:
+```julia
+cf_vec = zeros(N)
+cc_vec = zeros(N)
+```
+
+Find potentially constrained farmers:
+```julia
+If = findall(lf_vec .>= l_max)
+cf_vec[If] .= 1
+Ic = findall(lc_vec .>= l_max)
+cc_vec[Ic] .= 1
+```
+
+Land input demand accounting for constraint and its enforcement:
+```julia
+lfhat_vec = (1 .- cf_vec) .* lf_vec .+ cf_vec .* (THETA .* lf_vec .+ (1 .- THETA) .* l_max)
+lchat_vec = (1 .- cc_vec) .* lc_vec .+ cc_vec .* (THETA .* lc_vec .+ (1 .- THETA) .* l_max)
+```
+
+Auxiliary demand and profit functions that account for constrained farmers:
+```julia
+nf_max = (((1 - ALPHA) * GAMMA * Pf * (A * KAPPAf .* g_vec) .^ (1 - GAMMA) .* l_max .^ (GAMMA * ALPHA)) / w) .^ (1 / (1 - GAMMA * (1 - ALPHA)))
+nc_max = (((1 - ALPHA) * GAMMA * Pc * (A * KAPPAc .* g_vec) .^ (1 - GAMMA) .* l_max .^ (GAMMA * ALPHA)) / w) .^ (1 / (1 - GAMMA * (1 - ALPHA)))
+nfhat_vec = (1 .- cf_vec) .* nf_vec + cf_vec .* (THETA .* nf_vec + (1 - THETA) .* nf_max)
+nchat_vec = (1 .- cc_vec) .* nc_vec + cc_vec .* (THETA .* nc_vec + (1 - THETA) .* nc_max)
+yf_max = (A * KAPPAf .* s_vec) .^ (1 - GAMMA) .* (l_max .^ ALPHA .* nf_max .^ (1 - ALPHA)) .^ GAMMA
+yc_max = (A * KAPPAc .* s_vec) .^ (1 - GAMMA) .* (l_max .^ ALPHA .* nc_max .^ (1 - ALPHA)) .^ GAMMA
+yfhat_vec = (1 .- cf_vec) .* yf_vec + cf_vec .* (THETA .* yf_vec + (1 - THETA) .* yf_max)
+ychat_vec = (1 .- cc_vec) .* yc_vec + cc_vec .* (THETA .* yc_vec + (1 - THETA) .* yc_max)
+PIf_max = (1 - GAMMA) * Pf * yf_max .* (phi_vec .^ (1 - GAMMA)) - Cf * ones(N)
+PIc_max = (1 - GAMMA) * Pc * yc_max .* (phi_vec .^ (1 - GAMMA)) - Cc * ones(N)
+PIfhat_vec = (1 .- cf_vec) .* PIf_vec + cf_vec .* (THETA .* PIf_vec + (1 - THETA) .* PIf_max)
+PIchat_vec = (1 .- cc_vec) .* PIc_vec + cc_vec .* (THETA .* PIc_vec + (1 - THETA) .* PIc_max)
+```
+
+Solve for associated occupational choices:
+```julia
+ofhat_vec = zeros(N)
+ochat_vec = zeros(N)
+Ifhat = findall(PIfhat_vec .>= max.(PIchat_vec, w))
+ofhat_vec[Ifhat] .= 1
+Ichat = findall(PIchat_vec .> max.(PIfhat_vec, w))
+ochat_vec[Ichat] .= 1
+```
+
+
+Implied hired workers:
+```julia
+Nw = sum((1 .- ochat_vec .- ofhat_vec)) ./ N 
+```
+
+Check whether labor and land markets clear:
+```julia
+f1 = (sum(ofhat_vec .* lfhat_vec) / N) + (sum(ochat_vec .* lchat_vec) / N) - LN 
+f2 = (sum(ofhat_vec .* nfhat_vec) / N) + (sum(ochat_vec .* nchat_vec) / N) - Nw 
+f = [f1, f2]
 ```
 
 
