@@ -124,6 +124,7 @@ Initial Guess for the variables:
 guess = [-2.4, -2.0]
 ```
 
+Parameters:
 ```julia
 GAMMA       = 0.7;
 ALPHA       = 0.3;
@@ -140,12 +141,10 @@ Additional parameters, assuming 'A' is needed as demonstrated in the previous ex
 params = [A] 
 ```
 
-
+<p align="justify"> Then we use nlsolve function to find the numerical solutions of our non-linear system of equations. Given the market-clearing conditions calculated from BE_eval() and specified set of varaibles we are interested in,  the algorithms uses numerical methods to approximate the roots of multiple equations simultaneously. We can derive the optimal distribution of lands and labor from the optimization results. </p>
 ```julia
 result = nlsolve((res, x) -> res .= BE_eval(x, params), guess, show_trace=true, xtol=1e-16)
 ```
-
-<p align="justify"> Then we use nlsolve function to find the numerical solutions of our non-linear system of equations. Given the market-clearing conditions calculated from BE_eval() and specified set of varaibles we are interested in,  the algorithms uses numerical methods to approximate the roots of multiple equations simultaneously. We can derive the optimal distribution of lands and labor from the optimization results. </p>
 
 Extracting the solution:
 ```julia
@@ -154,12 +153,61 @@ Cf = x[1]
 Cc = x[2]
 ```
 
-Check for convergence
+Check for convergence:
 ```julia
 converged = result.f_converged
 println("Converged: ", converged)
 ```
 
+Compute occupational choice cutoffs
+Choose g_lbar to match a share of hired labor in total labor:
+```julia
+INl = findfirst(cdf_g .> hired_lab_sh)
+g_lbar = g_vec[INl]
+sh_l = cdf_g[INl]
+g_lbar_Indic = findfirst(x -> x > g_lbar, g_vec) - 1
+```
+
+Choose g_ubar to match a share of food crop operators in total operators
+```julia
+INu = findfirst(cdf_g .> (hired_lab_sh + (1 - hired_lab_sh) * (1 - cash_oper_sh)))
+g_ubar = g_vec[INu]
+sh_u = cdf_g[INu]
+g_ubar_Indic = findfirst(x -> x > g_ubar, g_vec) - 1
+```
+
+Factor prices - from model equations:
+```julia
+w = (Cc - Cf) / ((g_ubar / g_lbar) * ((Pc / Pf)^(1 / (1 - GAMMA)) * (KAPPAc / KAPPAf) - 1)) - Cf
+q = ALPHA * (((g_lbar * (GAMMA^(GAMMA / (1 - GAMMA))) * (1 - GAMMA) * (((1 - ALPHA) / w)^(GAMMA * (1 - ALPHA) / (1 - GAMMA))) * (Pf)^(1 / (1 - GAMMA)) * (A * KAPPAf)) / (w + Cf))^((1 - GAMMA) / (ALPHA * GAMMA)))
+qw_ratio = q / w
+```
+
+Initialize of_vec with ones and then set specific elements to zero based on conditions:
+```julia
+of_vec = ones(Int, N)
+of_vec[1:g_lbar_Indic-1] .= 0
+of_vec[g_ubar_Indic+1:N] .= 0
+```
+
+Initialize oc_vec with ones and then set specific elements to zero based on conditions:
+```julia
+oc_vec = ones(Int, N)
+oc_vec[1:g_ubar_Indic] .= 0
+```
+
+Solve problem under each technology for every individual:
+```julia
+lf_vec = ((ALPHA / q)^((1 - (1 - ALPHA) * GAMMA) / (1 - GAMMA))) * (((1 - ALPHA) / w)^(GAMMA * (1 - ALPHA) / (1 - GAMMA))) * ((GAMMA * Pf)^(1 / (1 - GAMMA))) * (A * KAPPAf) .* g_vec
+lc_vec = ((ALPHA / q)^((1 - (1 - ALPHA) * GAMMA) / (1 - GAMMA))) * (((1 - ALPHA) / w)^(GAMMA * (1 - ALPHA) / (1 - GAMMA))) * ((GAMMA * Pc)^(1 / (1 - GAMMA))) * (A * KAPPAc) .* g_vec
+nl_ratio = ((1 - ALPHA) / ALPHA) * qw_ratio
+nf_vec = nl_ratio .* lf_vec
+nc_vec = nl_ratio .* lc_vec
+yf_vec = (A * KAPPAf .* s_vec) .^ (1 - GAMMA) .* (lf_vec .^ ALPHA .* nf_vec .^ (1 - ALPHA)) .^ GAMMA
+yc_vec = (A * KAPPAc .* s_vec) .^ (1 - GAMMA) .* (lc_vec .^ ALPHA .* nc_vec .^ (1 - ALPHA)) .^ GAMMA
+PIf_vec = (1 - GAMMA) * Pf * yf_vec .* (phi_vec .^ (1 - GAMMA)) - Cf .* ones(N)
+PIc_vec = (1 - GAMMA) * Pc * yc_vec .* (phi_vec .^ (1 - GAMMA)) - Cc .* ones(N)
+```
 
 
 
