@@ -58,7 +58,7 @@ Pkg.add(url="https://github.com/KexinChen1999/LR_market.jl")
 
 # Usage
 
-To show how the `ReplicationPackage_KexinCHEN_JinxuMI` package can be used, several Julia packages are required to be installed and used, including Pkg, Printf, MAT, Distributions, LinearAlgebra, Statistics, DelimitedFiles, Optim, NLsolve, Plots, Serialization, CSV, and DataFrames. Also, we assume you have already installed `ReplicationPackage_KexinCHEN_JinxuMI` as described above.
+To show how the `ReplicationPackage_KexinCHEN_JinxuMI` package can be used, several Julia packages are required to be installed and used, including `Pkg`, `Printf`, `MAT, `Distributions`, `LinearAlgebra`, `Statistics`, `DelimitedFiles`, `Optim`, `NLsolve`, `Plots`, `Serialization`, `CSV`, and `DataFrames`. Also, we assume you have already installed `ReplicationPackage_KexinCHEN_JinxuMI` as described above.
 
 First, we focus on the the Calibration of Benchmark Economy (BE) part and define the `BE_eval` function:
 
@@ -178,13 +178,16 @@ function LR_main_eval(x, A)
 end
 ```
 
-`LR_main_eval` function will default to using an adaptive differential evolution optimizer in this case and use it to try to locate a solution where both elements can be Floats in the range -5.0:5.0. If you wanted a different range of allowed values for the second dimension of the solution you can specify that with a range of allowed values. In this case, you do not need to specify the number of dimensions since that is implicit from the number of ranges supplied:
+The function `LR_main_eval` does the same thing as `BE_eval` but under the condition of government-mandated land reform.
+
 
 
 
 ```julia
 result = nlsolve((res, x) -> res .= LR_main_eval(x, params), guess, show_trace=true, xtol=1e-16)
 ```
+
+
 
 Solve farmer's problem:
 ```julia
@@ -274,7 +277,11 @@ function LR_market_eval(x, A)
 end
 ```
 
-`LR_market_eval` function will default to using an adaptive differential evolution optimizer in this case and use it to try to locate a solution where both elements can be Floats in the range -5.0:5.0. If you wanted a different range of allowed values for the second dimension of the solution you can specify that with a range of allowed values. In this case, you do not need to specify the number of dimensions since that is implicit from the number of ranges supplied:
+
+The function `LR_main_eval` does the same thing as `BE_eval` but under the condition of market-based reform in distributing the land above the government-mandated ceiling.
+
+
+
 
 
 
