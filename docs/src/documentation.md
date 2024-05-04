@@ -142,6 +142,7 @@ params = [A]
 ```
 
 <p align="justify"> Then we use nlsolve function to find the numerical solutions of our non-linear system of equations. Given the market-clearing conditions calculated from BE_eval() and specified set of varaibles we are interested in,  the algorithms uses numerical methods to approximate the roots of multiple equations simultaneously. We can derive the optimal distribution of lands and labor from the optimization results. </p>
+
 ```julia
 result = nlsolve((res, x) -> res .= BE_eval(x, params), guess, show_trace=true, xtol=1e-16)
 ```
@@ -159,17 +160,15 @@ converged = result.f_converged
 println("Converged: ", converged)
 ```
 
-Compute occupational choice cutoffs
-Choose g_lbar to match a share of hired labor in total labor:
+Compute occupational choice cutoffs:
 ```julia
+#Choose g_lbar to match a share of hired labor in total labor
 INl = findfirst(cdf_g .> hired_lab_sh)
 g_lbar = g_vec[INl]
 sh_l = cdf_g[INl]
 g_lbar_Indic = findfirst(x -> x > g_lbar, g_vec) - 1
-```
 
-Choose g_ubar to match a share of food crop operators in total operators
-```julia
+#Choose g_ubar to match a share of food crop operators in total operators
 INu = findfirst(cdf_g .> (hired_lab_sh + (1 - hired_lab_sh) * (1 - cash_oper_sh)))
 g_ubar = g_vec[INu]
 sh_u = cdf_g[INu]
