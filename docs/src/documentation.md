@@ -116,9 +116,131 @@ function BE_eval(x, A)
 end
 ```
 
+`BE_eval` function will default to using an adaptive differential evolution optimizer in this case and use it to try to locate a solution where both elements can be Floats in the range -5.0:5.0. If you wanted a different range of allowed values for the second dimension of the solution you can specify that with a range of allowed values. In this case, you do not need to specify the number of dimensions since that is implicit from the number of ranges supplied:
 
 
 
+Second, we focus on the Goverment-mandated Land Reform (LR_main) part and define the `LR_main_eval` function:
+
+```julia
+function LR_main_eval(x, A)
+    global KAPPAc, KAPPAf, LN, l_vec, Indic, g_vec, s_vec, phi_vec, Pc, Pf, GAMMA, ALPHA, Cf, Cc, N
+    w = x[1]
+
+     # Initialize vectors before in-place updating
+     nf_vec = zeros(Float64, N)
+     nc_vec = zeros(Float64, N)
+     yf_vec = zeros(Float64, N)
+     yc_vec = zeros(Float64, N)
+     PIf_vec = zeros(Float64, N)
+     PIc_vec = zeros(Float64, N)
+     oc_vec = zeros(Int, N)
+     of_vec = zeros(Int, N)
+
+    # Solve Farmer's Problem
+    nf_vec .= ((1 .- ALPHA) .* GAMMA .* (Pf ./ w) .* ((A .* KAPPAf .* g_vec) .^ (1 .- GAMMA)) .* (l_vec .^ (ALPHA .* GAMMA))) .^ (1 ./ (1 .- GAMMA .* (1 .- ALPHA)))
+    nc_vec .= ((1 .- ALPHA) .* GAMMA .* (Pc ./ w) .* ((A .* KAPPAc .* g_vec) .^ (1 .- GAMMA)) .* (l_vec .^ (ALPHA .* GAMMA))) .^ (1 ./ (1 .- GAMMA .* (1 .- ALPHA)))
+    yf_vec .= (A .* KAPPAf .* s_vec) .^ (1 .- GAMMA) .* (l_vec .^ ALPHA .* nf_vec .^ (1 .- ALPHA)) .^ GAMMA
+    yc_vec .= (A .* KAPPAc .* s_vec) .^ (1 .- GAMMA) .* (l_vec .^ ALPHA .* nc_vec .^ (1 .- ALPHA)) .^ GAMMA
+    PIf_vec .= (1 .- GAMMA .* (1 .- ALPHA)) .* Pf .* yf_vec .* (phi_vec .^ (1 .- GAMMA)) .- Pf .* Cf .* ones(N)
+    PIc_vec .= (1 .- GAMMA .* (1 .- ALPHA)) .* Pc .* yc_vec .* (phi_vec .^ (1 .- GAMMA)) .- Pc .* Cc .* ones(N)
+
+    # Determine technology choice vector
+    oc_vec .= zeros(Int, N)
+    max_value_Pw = max.(PIf_vec, w)
+    I = findall(PIc_vec .> max_value_Pw)
+    oc_vec[I] .= 1
+
+
+    # Reform implied occupational choice vector
+    of_vec .= zeros(Int, N)
+    for ij = 1:minimum(I) .- 1
+        of_vec[ij] = 1
+    end
+
+    Indic = float(Indic)
+    of_vec = of_vec .* Indic
+
+    # Remaining hired workers (=landless)
+    Nww = sum((1 .- oc_vec .- of_vec)) ./ N
+    f = (sum(of_vec .* nf_vec) ./ N) .+ (sum(oc_vec .* nc_vec) ./ N) .- Nww
+
+    return f
+end
+```
+
+
+
+Third, we focus on the Market-based Land Reform (LR_market) part and define the `LR_market_eval` function:
+
+```julia
+function LR_market_eval(x, A)
+    global KAPPAc, KAPPAf, LN, g_vec, s_vec, phi_vec, Pc, Pf, GAMMA, ALPHA, Cf, Cc, N, l_max, THETA
+
+    w = x[1]
+    q = x[2]
+
+    # Factor price ratio
+    qw_ratio = q ./ w
+
+    # Solve unconstrained problem under each technology for all individuals
+    lf_vec .= ((ALPHA ./ q) .^ ((1 .- (1 .- ALPHA) .* GAMMA) ./ (1 .- GAMMA)) .* ((1 .- ALPHA) ./ w) .^ (GAMMA .* (1 .- ALPHA) ./ (1 .- GAMMA)) .* (GAMMA .* Pf) .^ (1 ./ (1 .- GAMMA)) .* (A .* KAPPAf) .* g_vec)
+    lc_vec .= ((ALPHA ./ q) .^ ((1 .- (1 .- ALPHA) .* GAMMA) ./ (1 .- GAMMA)) .* ((1 .- ALPHA) ./ w) .^ (GAMMA .* (1 .- ALPHA) ./ (1 .- GAMMA)) .* (GAMMA .* Pc) .^ (1 ./ (1 .- GAMMA)) .* (A .* KAPPAc) .* g_vec)
+    nl_ratio = ((1 .- ALPHA) ./ ALPHA) .* qw_ratio
+    nf_vec = nl_ratio .* lf_vec
+    nc_vec = nl_ratio .* lc_vec
+    yf_vec = (A .* KAPPAf .* s_vec) .^ (1 .- GAMMA) .* (lf_vec .^ ALPHA .* nf_vec .^ (1 - ALPHA)) .^ GAMMA
+    yc_vec = (A .* KAPPAc .* s_vec) .^ (1 .- GAMMA) .* (lc_vec .^ ALPHA .* nc_vec .^ (1 - ALPHA)) .^ GAMMA
+    PIf_vec = (1 .- GAMMA) .* Pf .* yf_vec .* (phi_vec .^ (1 .- GAMMA)) .- Cf .* ones(N)
+    PIc_vec = (1 .- GAMMA) .* Pc .* yc_vec .* (phi_vec .^ (1 .- GAMMA)) .- Cc .* ones(N)
+
+    # Find potentially constrained farmers
+    cf_vec = zeros(Int, N)
+    cc_vec = zeros(Int, N)
+    If = findall(lf_vec .>= l_max)
+    cf_vec[If] .= 1
+    Ic = findall(lc_vec .>= l_max)
+    cc_vec[Ic] .= 1
+
+    # Land input demand accounting for constraint and its enforcement
+    lfhat_vec = (1 .- cf_vec) .* lf_vec .+ cf_vec .* (THETA .* lf_vec .+ (1 .- THETA) .* l_max)
+    lchat_vec = (1 .- cc_vec) .* lc_vec .+ cc_vec .* (THETA .* lc_vec .+ (1 .- THETA) .* l_max)
+
+    # Auxiliary demand and profit functions that account for constrained farmers
+    nf_max = (((1 .- ALPHA) .* GAMMA .* Pf .* (A .* KAPPAf .* g_vec) .^ (1 .- GAMMA) .* l_max .^ (GAMMA .* ALPHA)) ./ w) .^ (1 ./ (1 .- GAMMA .* (1 .- ALPHA)))
+    nc_max = (((1 .- ALPHA) .* GAMMA .* Pc .* (A .* KAPPAc .* g_vec) .^ (1 .- GAMMA) .* l_max .^ (GAMMA .* ALPHA)) ./ w) .^ (1 ./ (1 .- GAMMA .* (1 .- ALPHA)))
+    nfhat_vec = (1 .- cf_vec) .* nf_vec .+ cf_vec .* (THETA .* nf_vec .+ (1 .- THETA) .* nf_max)
+    nchat_vec = (1 .- cc_vec) .* nc_vec .+ cc_vec .* (THETA .* nc_vec .+ (1 .- THETA) .* nc_max)
+    yf_max = (A .* KAPPAf .* s_vec) .^ (1 .- GAMMA) .* (l_max .^ ALPHA .* nf_max .^ (1 .- ALPHA)) .^ GAMMA
+    yc_max = (A .* KAPPAc .* s_vec) .^ (1 .- GAMMA) .* (l_max .^ ALPHA .* nc_max .^ (1 .- ALPHA)) .^ GAMMA
+    yfhat_vec = (1 .- cf_vec) .* yf_vec .+ cf_vec .* (THETA .* yf_vec .+ (1 .- THETA) .* yf_max)
+    ychat_vec = (1 .- cc_vec) .* yc_vec .+ cc_vec .* (THETA .* yc_vec .+ (1 .- THETA) .* yc_max)
+    PIf_max = (1 .- GAMMA) .* Pf .* yf_max .* (phi_vec .^ (1 .- GAMMA)) .- Cf .* ones(N)
+    PIc_max = (1 .- GAMMA) .* Pc .* yc_max .* (phi_vec .^ (1 .- GAMMA)) .- Cc .* ones(N)
+    PIfhat_vec = (1 .- cf_vec) .* PIf_vec .+ cf_vec .* (THETA .* PIf_vec .+ (1 .- THETA) .* PIf_max)
+    PIchat_vec = (1 .- cc_vec) .* PIc_vec .+ cc_vec .* (THETA .* PIc_vec .+ (1 .- THETA) .* PIc_max)
+
+    # Solve for associated occupational choices
+    ofhat_vec = zeros(Int, N)
+    ochat_vec = zeros(Int, N)
+    max_value_PIchat = max.(PIchat_vec, w)
+    Ifhat = findall(PIfhat_vec .>= max_value_PIchat)
+    ofhat_vec[Ifhat] .= 1
+    max_value_PIfhat = max.(PIfhat_vec, w)
+    Ichat = findall(PIchat_vec .> max_value_PIfhat)
+    ochat_vec[Ichat] .= 1
+
+    # Implied hired workers
+    Nw = sum((1 .- ochat_vec .- ofhat_vec)) ./ N
+
+    # Check whether labor and land markets clear
+    f1 = (sum(ofhat_vec .* lfhat_vec) ./ N) .+ (sum(ochat_vec .* lchat_vec) ./ N) .- LN
+    f2 = (sum(ofhat_vec .* nfhat_vec) ./ N) .+ (sum(ochat_vec .* nchat_vec) ./ N) .- Nw
+    f = [f1, f2]
+
+    return f
+end
+```
 
 
 
