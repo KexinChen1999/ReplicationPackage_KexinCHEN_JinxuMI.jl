@@ -6,7 +6,7 @@ CurrentModule = ReplicationPackage_KexinCHEN_JinxuMI
 
 Documentation for [ReplicationPackage_KexinCHEN_JinxuMI](https://github.com/KexinChen1999/ReplicationPackage_KexinCHEN_JinxuMI.jl).
 
-<p align="justify"> We replicate the simulations of the three models of land distribution after reform in the original paper[(Adamopoulos & Restuccia, 2020)](https://www.aeaweb.org/articles?id=10.1257/mac.20150222). The original models are calibrated and simulated in Matlab, while we used Julia (http://julialang.org/), an open source, free of charge computational lanaguage, to replicate the paper. Our work provides a new way to use the model in the original paper without buying a liscense from MathWorks. The package sheds new light on using Julia to estimate the effects of land reforms. </p>
+We replicate the simulations of the three models of land distribution after reform in the original paper[(Adamopoulos & Restuccia, 2020)](https://www.aeaweb.org/articles?id=10.1257/mac.20150222). The original models are calibrated and simulated in Matlab, while we used Julia (http://julialang.org/), an open source, free of charge computational lanaguage, to replicate the paper. Our work provides a new way to use the model in the original paper without buying a liscense from MathWorks. The package sheds new light on using Julia to estimate the effects of land reforms. 
 
 
 
