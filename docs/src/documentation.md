@@ -38,17 +38,17 @@ using latest master directly from github:
 Pkg.add(url="https://github.com/KexinChen1999/ReplicationPackage_KexinCHEN_JinxuMI.jl")
 ```
 
-or just using the Calibration of Benchmark Economy (BE) part from github:
+if you are just interested in using the Calibration of Benchmark Economy (BE) part:
 ```julia
 Pkg.add(url="https://github.com/KexinChen1999/BE.jl")
 ```
 
-or just using Goverment-mandated Land Reform (LR_main) part from github:
+if you are just interested in using Goverment-mandated Land Reform (LR_main) part:
 ```julia
 Pkg.add(url="https://github.com/KexinChen1999/LR_main.jl")
 ```
 
-or just using the Market-based Land Reform (LR_market) part from github:
+if you are just interested in using the Market-based Land Reform (LR_market) part:
 ```julia
 Pkg.add(url="https://github.com/KexinChen1999/LR_market.jl")
 ```
