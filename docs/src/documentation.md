@@ -139,7 +139,7 @@ LN          = AFS*(1-hired_lab_sh);
 KAPPAc      = 1.25
 ```
 
-Additional parameters, assuming 'A' is needed as demonstrated in the previous explanation
+Additional parameters
 ```julia
 params = [A] 
 ```
@@ -290,8 +290,15 @@ end
 
 The function `LR_main_eval` does the same thing as `BE_eval` but under the condition of government-mandated land reform.
 
+Initial Guess
+```julia
+guess  = [0.7]
+```
 
-
+Additional parameters
+```julia
+params = [A] 
+```
 
 ```julia
 result = nlsolve((res, x) -> res .= LR_main_eval(x, params), guess, show_trace=true, xtol=1e-16)
@@ -390,8 +397,32 @@ end
 
 The function `LR_main_eval` does the same thing as `BE_eval` but under the condition of market-based reform in distributing the land above the government-mandated ceiling.
 
+Initial Guess
+```julia
+guess  = [0.88 0.09]
+```
 
+Additional parameters
+```julia
+params = [A] 
+```
 
+```julia
+result = nlsolve(x -> LR_market_eval(x, A), guess) 
+```
+
+Solve unconstrained problem under each technology for all individuals
+```julia
+lf_vec = ((ALPHA / q)^((1 - (1 - ALPHA) * GAMMA) / (1 - GAMMA))) * (((1 - ALPHA) / w)^(GAMMA * (1 - ALPHA) / (1 - GAMMA))) * ((GAMMA * Pf)^(1 / (1 - GAMMA))) * ((A * KAPPAf) .* g_vec)
+lc_vec = ((ALPHA / q)^((1 - (1 - ALPHA) * GAMMA) / (1 - GAMMA))) * (((1 - ALPHA) / w)^(GAMMA * (1 - ALPHA) / (1 - GAMMA))) * ((GAMMA * Pc)^(1 / (1 - GAMMA))) * ((A * KAPPAc) .* g_vec)
+nl_ratio = ((1 - ALPHA) / ALPHA) * qw_ratio
+nf_vec = nl_ratio .* lf_vec
+nc_vec = nl_ratio .* lc_vec
+yf_vec = (A * KAPPAf .* s_vec).^(1 - GAMMA) .* (lf_vec.^ALPHA .* nf_vec.^(1 - ALPHA)).^GAMMA
+yc_vec = (A * KAPPAc .* s_vec).^(1 - GAMMA) .* (lc_vec.^ALPHA .* nc_vec.^(1 - ALPHA)).^GAMMA
+PIf_vec = (1 - GAMMA) * Pf * yf_vec .* (phi_vec.^(1 - GAMMA)) - Cf * ones(N)
+PIc_vec = (1 - GAMMA) * Pc * yc_vec .* (phi_vec.^(1 - GAMMA)) - Cc * ones(N)
+```
 
 
 
