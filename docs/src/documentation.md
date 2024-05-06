@@ -57,6 +57,21 @@ Pkg.add(url="https://github.com/KexinChen1999/LR_market.jl")
 
 
 
+# Datasets
+
+You can rebuild all datasets except the raw data file with the  `BE.jl` or the first part of the `ReplicationPackage_KexinCHEN_JinxuMI`:
+
+Dataset Name |  Description
+-------------| -------------
+AbDist_matrix.mat	           | 	 Raw Data File
+BE_var_julia.mat	       | 	 Output - The first set of variables
+BE_parameters_julia.mat	               | 	Output - The second set of variables
+BE_values_julia.mat	       | 	 Output - The third set of variables
+
+
+
+
+
 # Usage
 
 To show how the `ReplicationPackage_KexinCHEN_JinxuMI` package can be used, several Julia packages are required to be installed and used, including `Pkg`, `Printf`, `MAT`, `Distributions`, `LinearAlgebra`, `Statistics`, `DelimitedFiles`, `Optim`, `NLsolve`, `Plots`, `Serialization`, `CSV`, and `DataFrames`. Also, we assume you have already installed `ReplicationPackage_KexinCHEN_JinxuMI` as described above.
