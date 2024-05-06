@@ -360,7 +360,7 @@ end
 ```
 
 
-CONDITIONAL (ON OPERATING) DISTRIBUTIONS OVER SPECIFIED BINS
+conditional (on operating) distributions over specified bins
 ```julia
 # Conditional (on operating) distribution of LAND INPUT across specified bins - note this is the same as land_pdf_model
 l_model = [land1, land2, land3, land4, land5, land6, land7]
@@ -429,7 +429,7 @@ CORR_lTFP_lTFPR_model = cor(lTFP_vec_ac, lTFPR_vec_ac)
 println(CORR_lTFP_lTFPR_model)
 ```
 
-OUTPUT / OUTPUT PER WORKER
+OUTPUT / OUTPUT PER WORKER 🌟
 ```julia
 # Aggregate Output per capita (since persons = workers, and only one sector this is also aggregate output per worker - and includes operators + hired workers)
 VApw_BE = (sum(oc_vec .* yc_vec) + sum(of_vec .* yf_vec)) / N
