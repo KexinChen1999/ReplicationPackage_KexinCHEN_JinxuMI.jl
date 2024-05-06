@@ -508,9 +508,46 @@ f = [f1, f2]
 
 # Comparison with the original results
 
-![BE_Farm Size Distribution Across Specified Bins](/docs/src/BE_Farm Size Distribution Across Specified Bins.png)
+## BE Farm Size Distribution
+![BE Farm Size Distribution](BE_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
-![Farm Size Distribution](BE_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
+## BE Hired Labor per Hectare Distribution Across Specified Bins.png
+![BE Hired Labor per Hectare Distribution](BE_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
+
+## BE Land Size Distribution
+![BE Land Size Distribution](BE_Land%20Size%20Distribution%20Across%20Specified%20Bins.png)
+
+## BE Value Added per Worker Distribution
+![BE Value Added per Worker Distribution](BE_Value%20Added%20per%20Worker%20Distribution%20Across%20Specified%20Bins.png)
+
+## LR Main Farm Size Distribution 
+![LR Main Farm Size Distribution](LR_main_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
+
+## LR Main Hired Labor per Hectare Distribution
+![LR Main Hired Labor per Hectare Distribution](LR_main_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
+
+## LR Main Land Size Distribution
+![LR Main Land Size Distribution](LR_main_Land%20Size%20Distribution%20Across%20Specified%20Bins.png)
+
+## LR Main Value Added per Worker Distribution
+![LR Main Value Added per Worker Distribution](LR_main_Value%20Added%20per%20Worker%20Distribution%20Across%20Specified%20Bins.png)
+
+## LR Market Farm Size Distribution
+![LR Market Farm Size Distribution](LR_market_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
+
+## LR Market Hired Labor per Hectare Distribution
+![LR Market Hired Labor per Hectare Distribution](LR_market_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
+
+## LR Market Land Size Distribution
+![LR Market Land Size Distribution](LR_market_Land%20Size%20Distribution%20Across%20Specified%20Bins.png)
+
+## LR Market Value Added per Worker Distribution
+![LR Market Value Added per Worker Distribution](LR_market_Value%20Added%20per%20Worker%20Distribution%20Across%20Specified%20Bins.png)
+
+
+
+
+
 
 
 
