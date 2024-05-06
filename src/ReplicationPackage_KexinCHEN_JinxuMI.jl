@@ -583,76 +583,113 @@ VApw_model = (y_model./n_model)/AggVApw
 #Conditional (on operating) distribution of HIRED LABOR PER HECTARE(HIRED LABOR TO LAND RATIO) for specified bins relative to average - MODEL
 HLph_model = (h_model./l_model)/AggHLph
 
-
 begin
     farm_pdf_85panel_matrix = reshape(farm_pdf_85panel, :, 1)
     data = hcat(reshape(l_model, :, 1), farm_pdf_85panel_matrix)
     xtick_labels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
-    xticks = (1:length(xtick_labels), xtick_labels)
+    xtick_values = (1:length(xtick_labels), xtick_labels)  # Renamed to avoid conflicts
 
-    p1 = bar(data, label=["Model" "1985 Survey Data"], legend=:topright, xticks=xticks, 
-        ylims=(0, 0.4), xlabel="Farm Size Class in Ha", ylabel="Fraction of Farms", 
-        size=(600, 400), bar_width=0.7)
-    savefig(p1,"Farm Size Distribution Across Specified Bins.png")
+    group_size = size(data, 2)
+    width = 0.35  # Adjust width to fit bars side by side
+    offsets = [-width/2, width/2]  # Position adjustments for each bar
+    p1 = plot(size=(600, 400), legend=:topright, xticks=xtick_values, ylims=(0, 0.4),
+              xlabel="Farm Size Class in Ha", ylabel="Fraction of Farms")
+
+    # Loop to plot bars with adjusted positions for each group
+    for i in 1:group_size
+        bar!(xtick_values[1] .+ offsets[i], data[:, i], label=(i == 1 ? "Model" : "1985 Survey Data"),
+             bar_width=width, color=:auto)
+    end
+
+    savefig(p1, "BE_Farm Size Distribution Across Specified Bins.png")
 end
-
 
 begin
     land_pdf_85panel_matrix = reshape(land_pdf_85panel, :, 1)
     data = hcat(reshape(l_model, :, 1), land_pdf_85panel_matrix)
-    # Define the bin labels
     xtick_labels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
-    xticks = (1:length(xtick_labels), xtick_labels)
+    xtick_values = (1:length(xtick_labels), xtick_labels)  # Renamed to avoid conflicts
 
-    # Create the grouped bar plot
-    p2 = bar(data, label=["Model" "1985 Survey Data"], legend=:topright, xticks=xticks,
-        ylims=(0, 0.35), xlabel="Farm Size Class in Ha", ylabel="Fraction of Land",
-        size=(600, 400), bar_width=0.7)
-    savefig(p2,"Land Input Distribution Across Specified Bins.png")
-end
+    group_size = size(data, 2)
+    width = 0.35  # Adjust width to fit bars side by side
+    offsets = [-width/2, width/2]  # Position adjustments for each bar
+    p2 = plot(size=(600, 400), legend=:topright, xticks=xtick_values, ylims=(0, 0.4),
+              xlabel="Farm Size Class in Ha", ylabel="Fraction of Land")
 
-
-begin
-    VApw_model_col = reshape(VApw_model, :, 1)  # Making sure it's a column vector
-    VApw_data_col = reshape(VApw_data, :, 1)  # Same for VApw_data
-    
-    data = hcat(VApw_model_col, VApw_data_col)  # Concatenate the data side by side
-    
-    # Define bin labels and corresponding x-tick positions
-    xtick_labels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
-    xticks = (1:length(xtick_labels), xtick_labels)
-    
-    # Create the grouped bar plot
-    p3 = bar(data, label=["Model" "1985 Survey Data"], legend=:topright, xticks=xticks,
-        ylims=(0, 1.7), xlabel="Farm Size Class in Ha", ylabel="Value Added Per Worker (Relative to Average)",
-        size=(600, 400), bar_width=0.7)    
-    savefig(p3, "Value Added per Worker Distribution Across Specified Bins.png")
+    # Loop to plot bars with adjusted positions for each group
+    for i in 1:group_size
+        bar!(xtick_values[1] .+ offsets[i], data[:, i], label=(i == 1 ? "Model" : "1985 Survey Data"),
+             bar_width=width, color=:auto)
+    end        
+    savefig(p2, "BE_Land Size Distribution Across Specified Bins.png")
 end
 
 begin
-    HLph_model_col = reshape(HLph_model, :, 1)  # Reshape if necessary
-    HLph_data_col = reshape(HLph_data, :, 1)    # Reshape if necessary
-
-    data = hcat(HLph_model_col, HLph_data_col)  # Concatenate data side by side
-
-    # Define bin labels and corresponding x-tick positions
+    VApw_model_col = reshape(VApw_model, :, 1)
+    VApw_data_col = reshape(VApw_data, :, 1)
+    data = hcat(VApw_model_col, VApw_data_col)
     xtick_labels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
-    xticks = (1:length(xtick_labels), xtick_labels)
+    xtick_values = (1:length(xtick_labels), xtick_labels)  # Renamed to avoid conflicts
 
-    # Create the grouped bar plot
-    p4 = bar(data, label=["Model" "1985 Survey Data"], legend=:topright, xticks=xticks,
-    ylims=(0, 1.5), xlabel="Farm Size Class in Ha", ylabel="Hired Labor Per Hectare (Relative to Average)",
-    size=(600, 400), bar_width=0.7)
-    savefig(p4, "Hired Labor per Hectare Distribution Across Specified Bins.png")
+    group_size = size(data, 2)
+    width = 0.35  # Adjust width to fit bars side by side
+    offsets = [-width/2, width/2]  # Position adjustments for each bar
+    p3 = plot(size=(600, 400), legend=:topright, xticks=xtick_values, ylims=(0, 2),
+              xlabel="Farm Size Class in Ha", ylabel="Value added per worker")
+
+    # Loop to plot bars with adjusted positions for each group
+    for i in 1:group_size
+        bar!(xtick_values[1] .+ offsets[i], data[:, i], label=(i == 1 ? "Model" : "1985 Survey Data"),
+             bar_width=width, color=:auto)
+    end        
+    savefig(p3, "BE_Value Added per Worker Distribution Across Specified Bins.png")
+
 end
+
+begin
+    HLph_model_col = reshape(HLph_model, :, 1)
+    HLph_data_col = reshape(HLph_data, :, 1)
+    data = hcat(HLph_model_col, HLph_data_col)
+    xtick_labels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
+    xtick_values = (1:length(xtick_labels), xtick_labels)  # Renamed to avoid conflicts
+
+    group_size = size(data, 2)
+    width = 0.35  # Adjust width to fit bars side by side
+    offsets = [-width/2, width/2]  # Position adjustments for each bar
+    p4 = plot(size=(600, 400), legend=:topright, xticks=xtick_values, ylims=(0, 2),
+              xlabel="Farm Size Class in Ha", ylabel="Value added per worker")
+
+    # Loop to plot bars with adjusted positions for each group
+    for i in 1:group_size
+        bar!(xtick_values[1] .+ offsets[i], data[:, i], label=(i == 1 ? "Model" : "1985 Survey Data"),
+             bar_width=width, color=:auto)
+    end        
+    savefig(p4, "BE_Hired Labor per Hectare Distribution Across Specified Bins.png")
+
+end
+
 
 
 # Find active farm operators
 indACTIVE = findall(x -> x == 1, Indic)
 
+
 #Distribution of TFP
 #--------------------------------------------------------------------------
 # TFP of Active Units
+TFPf_vec = (A*KAPPAf.*s_vec).^(1-GAMMA)
+TFPc_vec = (A*KAPPAc.*s_vec).^(1-GAMMA)
+
+# Initialize of_vec with ones and then set specific elements to zero based on conditions
+#of_vec = ones(Int, N)
+#of_vec[1:g_lbar_Indic-1] .= 0
+#of_vec[g_ubar_Indic+1:N] .= 0
+
+# Initialize oc_vec with ones and then set specific elements to zero based on conditions
+#oc_vec = ones(Int, N)
+#oc_vec[1:g_ubar_Indic] .= 0
+
+TFP_vec = of_vec .* TFPf_vec .+ oc_vec .* TFPc_vec
 TFP_vec_ac = TFP_vec[indACTIVE]
 
 # Log-TFP of Active Units
@@ -724,6 +761,24 @@ vars_BE_var = Dict(
 matwrite("BE_var_julia.mat", vars_BE_var)
 
 # Save the second set of variables to BE_parameters.mat
+# Save the first set of variables to BE_var.mat
+vars_BE_var = Dict(
+    "g_vec" => g_vec,
+    "s_vec" => s_vec,
+    "phi_vec" => phi_vec,
+    "oc_vec" => oc_vec,
+    "of_vec" => of_vec,
+    "COND_distr" => COND_distr,
+    "lf_vec" => lf_vec,
+    "lc_vec" => lc_vec,
+    "l_value" => l_value,
+    "l_vec" => l_vec,
+    "Indic" => Indic,
+    "cdf_g" => cdf_g
+)
+matwrite("BE_var_julia.mat", vars_BE_var)
+
+# Save the second set of variables to BE_parameters.mat
 vars_BE_parameters = Dict(
     "Cf" => Cf,
     "Cc" => Cc,
@@ -754,6 +809,27 @@ matwrite("BE_values_julia.mat", vars_BE_values)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ReplicationPackage_KexinCHEN_JinxuMI.jl
+# Replicating the article "Land Reform and Productivity: 
+# A Quantitative Analysis with Micro Data" (Adamopoulos & Restuccia, 2020)
 
 # LR_main.jl
 # Government-mandated land reform.
@@ -1020,7 +1096,7 @@ oc_vec[I] .= 1
 
 
 #Reform implied occupational choice vector
-of_vec .= zeros(Int, N)
+of_vec = zeros(Int, N)
 
 for ij = 1:minimum(I) .- 1
         of_vec[ij] = 1
@@ -1204,37 +1280,94 @@ xticklabels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
 
 # For the farm model plot
 begin
-    p1 = plot(bar([f_model, farm_pdf_03panel], label=["Model" "2003 Survey Data"], xticks=(1:7, xticklabels), legend=:topright), 
-        colormap=:summer, xlabel="Farm Size Class in Ha", ylabel="Fraction of Farms", size=(600,400))
-    xlims!(0, 8)
-    ylims!(0, 0.4)
-    plot!(p1, title="Farm Size Distribution")
-    savefig(p1,"Farm Size Distribution.png")
+    farm_pdf_03panel_matrix = reshape(farm_pdf_03panel, :, 1)
+    data = hcat(reshape(l_model, :, 1), farm_pdf_03panel_matrix)
+    xtick_labels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
+    xtick_values = (1:length(xtick_labels), xtick_labels)  # Renamed to avoid conflicts
+
+    group_size = size(data, 2)
+    width = 0.35  # Adjust width to fit bars side by side
+    offsets = [-width/2, width/2]  # Position adjustments for each bar
+    p1 = plot(size=(600, 400), legend=:topright, xticks=xtick_values, ylims=(0, 0.5),
+              xlabel="Farm Size Class in Ha", ylabel="Fraction of Farms")
+
+    # Loop to plot bars with adjusted positions for each group
+    for i in 1:group_size
+        bar!(xtick_values[1] .+ offsets[i], data[:, i], label=(i == 1 ? "Model" : "2003 Survey Data"),
+             bar_width=width, color=:auto)
+    end
+
+    savefig(p1, "LR_main_Farm Size Distribution Across Specified Bins.png")
 end
 
 begin
-    # For the land model plot
-    p2 = plot(bar([l_model, land_pdf_03panel], label=["Model" "2003 Survey Data"], xticks=(1:7, xticklabels), legend=:topright), 
-        colormap=:summer, xlabel="Farm Size Class in Ha", ylabel="Fraction of Land", size=(600,400))
-    plot!(p2, title="Land Distribution")
-    savefig(p2,"Land Distribution.png")
+    land_pdf_03panel_matrix = reshape(land_pdf_03panel, :, 1)
+    data = hcat(reshape(l_model, :, 1), land_pdf_03panel_matrix)
+    xtick_labels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
+    xtick_values = (1:length(xtick_labels), xtick_labels)  # Renamed to avoid conflicts
+
+    group_size = size(data, 2)
+    width = 0.35  # Adjust width to fit bars side by side
+    offsets = [-width/2, width/2]  # Position adjustments for each bar
+    p2 = plot(size=(600, 400), legend=:topright, xticks=xtick_values, ylims=(0, 0.5),
+              xlabel="Farm Size Class in Ha", ylabel="Fraction of Land")
+
+    # Loop to plot bars with adjusted positions for each group
+    for i in 1:group_size
+        bar!(xtick_values[1] .+ offsets[i], data[:, i], label=(i == 1 ? "Model" : "2003 Survey Data"),
+             bar_width=width, color=:auto)
+    end        
+    savefig(p2, "LR_main_Land Size Distribution Across Specified Bins.png")
 end
 
 begin
-    # For the value added per worker model plot
-    p3 = plot(bar([VApw_model, VApw_2003data], label=["Model" "2003 Survey Data"], xticks=(1:7, xticklabels), legend=:topright),
-        colormap=:summer, xlabel="Farm Size Class in Ha", ylabel="Value Added Per Worker (Relative to Average)", size=(600,400))
-    plot!(p3, title="Value Added Per Worker")
-    savefig(p3,"Value Added Per Worker.png")
+    VApw_model_col = reshape(VApw_model, :, 1)
+    VApw_data_col = reshape(VApw_2003data, :, 1)
+    data = hcat(VApw_model_col, VApw_data_col)
+    xtick_labels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
+    xtick_values = (1:length(xtick_labels), xtick_labels)  # Renamed to avoid conflicts
+
+    group_size = size(data, 2)
+    width = 0.35  # Adjust width to fit bars side by side
+    offsets = [-width/2, width/2]  # Position adjustments for each bar
+    p3 = plot(size=(600, 400), legend=:topright, xticks=xtick_values, ylims=(0, 3),
+              xlabel="Farm Size Class in Ha", ylabel="Value added per worker")
+
+    # Loop to plot bars with adjusted positions for each group
+    for i in 1:group_size
+        bar!(xtick_values[1] .+ offsets[i], data[:, i], label=(i == 1 ? "Model" : "2003 Survey Data"),
+             bar_width=width, color=:auto)
+    end        
+    savefig(p3, "LR_main_Value Added per Worker Distribution Across Specified Bins.png")
+
 end
 
 begin
-    # For the hired labor per hectare model plot
-    p4 = plot(bar([HLph_model, HLph_data_03], label=["Model" "2003 Survey Data"], xticks=(1:7, xticklabels), legend=:topright),
-        colormap=:summer, xlabel="Farm Size Class in Ha", ylabel="Hired Labor Per Hectare (Relative to Average)", size=(600,400))
-    plot!(p4, title="Hired Labor Per Hectare")
-    savefig(p4,"Hired Labor Per Hectare.png")
+    HLph_model_col = reshape(HLph_model, :, 1)
+    HLph_data_col = reshape(HLph_data_03, :, 1)
+    data = hcat(HLph_model_col, HLph_data_col)
+    xtick_labels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
+    xtick_values = (1:length(xtick_labels), xtick_labels)  # Renamed to avoid conflicts
+
+    group_size = size(data, 2)
+    width = 0.35  # Adjust width to fit bars side by side
+    offsets = [-width/2, width/2]  # Position adjustments for each bar
+    p4 = plot(size=(600, 400), legend=:topright, xticks=xtick_values, ylims=(0, 1.5),
+              xlabel="Farm Size Class in Ha", ylabel="Value added per worker")
+
+    # Loop to plot bars with adjusted positions for each group
+    for i in 1:group_size
+        bar!(xtick_values[1] .+ offsets[i], data[:, i], label=(i == 1 ? "Model" : "2003 Survey Data"),
+             bar_width=width, color=:auto)
+    end        
+    savefig(p4, "LR_main_Hired Labor per Hectare Distribution Across Specified Bins.png")
+
 end
+
+
+
+
+
 
 
 # All labor (hired+operators) by crop
@@ -1268,6 +1401,11 @@ landless_CHANGE = 100 * (landless_post - landless_BE)
 
 
 
+
+
+# ReplicationPackage_KexinCHEN_JinxuMI.jl
+# Replicating the article "Land Reform and Productivity: 
+# A Quantitative Analysis with Micro Data" (Adamopoulos & Restuccia, 2020)
 
 # LR_market.jl
 # Market-based land reform.
@@ -1682,36 +1820,88 @@ HLph_data_03 = [1.068650632, 1.135513794, 0.943871958, 0.861784207, 0.513856394,
 Ha = [1, 2, 3, 4, 5, 6, 7]
 xticklabels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
 begin
-    p1 = plot(bar([f_model, farm_pdf_03panel], label=["Model" "2003 Survey Data"], xticks=(1:7, xticklabels), legend=:topright), 
-        colormap=:summer, xlabel="Farm Size Class in Ha", ylabel="Fraction of Farms", size=(600,400))
-    xlims!(0, 8)
-    ylims!(0, 0.4)
-    plot!(p1, title="Farm Size Distribution")
-    savefig(p1,"Farm Size Distribution_market.png")
+    farm_pdf_03panel_matrix = reshape(farm_pdf_03panel, :, 1)
+    data = hcat(reshape(l_model, :, 1), farm_pdf_03panel_matrix)
+    xtick_labels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
+    xtick_values = (1:length(xtick_labels), xtick_labels)  # Renamed to avoid conflicts
+
+    group_size = size(data, 2)
+    width = 0.35  # Adjust width to fit bars side by side
+    offsets = [-width/2, width/2]  # Position adjustments for each bar
+    p1 = plot(size=(600, 400), legend=:topright, xticks=xtick_values, ylims=(0, 1.0),
+              xlabel="Farm Size Class in Ha", ylabel="Fraction of Farms")
+
+    # Loop to plot bars with adjusted positions for each group
+    for i in 1:group_size
+        bar!(xtick_values[1] .+ offsets[i], data[:, i], label=(i == 1 ? "Model" : "2003 Survey Data"),
+             bar_width=width, color=:auto)
+    end
+
+    savefig(p1, "LR_market_Farm Size Distribution Across Specified Bins.png")
 end
 
 begin
-    # For the land model plot
-    p2 = plot(bar([l_model, land_pdf_03panel], label=["Model" "2003 Survey Data"], xticks=(1:7, xticklabels), legend=:topright), 
-        colormap=:summer, xlabel="Farm Size Class in Ha", ylabel="Fraction of Land", size=(600,400))
-    plot!(p2, title="Land Distribution")
-    savefig(p2,"Land Distribution_market.png")
+    land_pdf_03panel_matrix = reshape(land_pdf_03panel, :, 1)
+    data = hcat(reshape(l_model, :, 1), land_pdf_03panel_matrix)
+    xtick_labels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
+    xtick_values = (1:length(xtick_labels), xtick_labels)  # Renamed to avoid conflicts
+
+    group_size = size(data, 2)
+    width = 0.35  # Adjust width to fit bars side by side
+    offsets = [-width/2, width/2]  # Position adjustments for each bar
+    p2 = plot(size=(600, 400), legend=:topright, xticks=xtick_values, ylims=(0, 1.0),
+              xlabel="Farm Size Class in Ha", ylabel="Fraction of Land")
+
+    # Loop to plot bars with adjusted positions for each group
+    for i in 1:group_size
+        bar!(xtick_values[1] .+ offsets[i], data[:, i], label=(i == 1 ? "Model" : "2003 Survey Data"),
+             bar_width=width, color=:auto)
+    end        
+    savefig(p2, "LR_market_Land Size Distribution Across Specified Bins.png")
 end
 
 begin
-    # For the value added per worker model plot
-    p3 = plot(bar([VApw_model, VApw_2003data], label=["Model" "2003 Survey Data"], xticks=(1:7, xticklabels), legend=:topright),
-        colormap=:summer, xlabel="Farm Size Class in Ha", ylabel="Value Added Per Worker (Relative to Average)", size=(600,400))
-    plot!(p3, title="Value Added Per Worker")
-    savefig(p3,"Value Added Per Worker_market.png")
+    VApw_model_col = reshape(VApw_model, :, 1)
+    VApw_data_col = reshape(VApw_2003data, :, 1)
+    data = hcat(VApw_model_col, VApw_data_col)
+    xtick_labels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
+    xtick_values = (1:length(xtick_labels), xtick_labels)  # Renamed to avoid conflicts
+
+    group_size = size(data, 2)
+    width = 0.35  # Adjust width to fit bars side by side
+    offsets = [-width/2, width/2]  # Position adjustments for each bar
+    p3 = plot(size=(600, 400), legend=:topright, xticks=xtick_values, ylims=(0, 2),
+              xlabel="Farm Size Class in Ha", ylabel="Value added per worker")
+
+    # Loop to plot bars with adjusted positions for each group
+    for i in 1:group_size
+        bar!(xtick_values[1] .+ offsets[i], data[:, i], label=(i == 1 ? "Model" : "2003 Survey Data"),
+             bar_width=width, color=:auto)
+    end        
+    savefig(p3, "LR_market_Value Added per Worker Distribution Across Specified Bins.png")
+
 end
 
 begin
-    # For the hired labor per hectare model plot
-    p4 = plot(bar([HLph_model, HLph_data_03], label=["Model" "2003 Survey Data"], xticks=(1:7, xticklabels), legend=:topright),
-        colormap=:summer, xlabel="Farm Size Class in Ha", ylabel="Hired Labor Per Hectare (Relative to Average)", size=(600,400))
-    plot!(p4, title="Hired Labor Per Hectare")
-    savefig(p4,"Hired Labor Per Hectare_market.png")
+    HLph_model_col = reshape(HLph_model, :, 1)
+    HLph_data_col = reshape(HLph_data_03, :, 1)
+    data = hcat(HLph_model_col, HLph_data_col)
+    xtick_labels = ["<1", "1-2", "2-5", "5-7", "7-10", "10-15", "15+"]
+    xtick_values = (1:length(xtick_labels), xtick_labels)  # Renamed to avoid conflicts
+
+    group_size = size(data, 2)
+    width = 0.35  # Adjust width to fit bars side by side
+    offsets = [-width/2, width/2]  # Position adjustments for each bar
+    p4 = plot(size=(600, 400), legend=:topright, xticks=xtick_values, ylims=(0, 1.5),
+              xlabel="Farm Size Class in Ha", ylabel="Value added per worker")
+
+    # Loop to plot bars with adjusted positions for each group
+    for i in 1:group_size
+        bar!(xtick_values[1] .+ offsets[i], data[:, i], label=(i == 1 ? "Model" : "2003 Survey Data"),
+             bar_width=width, color=:auto)
+    end        
+    savefig(p4, "LR_market_Hired Labor per Hectare Distribution Across Specified Bins.png")
+
 end
 
 
