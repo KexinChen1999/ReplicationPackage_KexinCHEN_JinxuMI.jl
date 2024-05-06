@@ -360,7 +360,7 @@ end
 ```
 
 
-conditional (on operating) distributions over specified bins
+Conditional (on operating) distributions over specified bins
 ```julia
 # Conditional (on operating) distribution of LAND INPUT across specified bins - note this is the same as land_pdf_model
 l_model = [land1, land2, land3, land4, land5, land6, land7]
