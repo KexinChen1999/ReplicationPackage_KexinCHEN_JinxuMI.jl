@@ -830,40 +830,40 @@ In this section, we verify the replication results by comparing our figures with
 
 
 ## Farm Output
-<img src="../Results_from_Matlab/paper_BE_farm.jpg" alt="BE Farm Output" width="50%">
+<img src="../Results_from_Matlab/paper_BE_farm.jpg" alt="BE Farm Output" width="60%">
 
 ## Labor Usage
-<img src="../Results_from_Matlab/paper_BE_labor.jpg" alt="BE Labor Usage" width="50%">
+<img src="../Results_from_Matlab/paper_BE_labor.jpg" alt="BE Labor Usage" width="60%">
 
 ## Land Allocation
-<img src="../Results_from_Matlab/paper_BE_land.jpg" alt="BE Land Allocation" width="50%">
+<img src="../Results_from_Matlab/paper_BE_land.jpg" alt="BE Land Allocation" width="60%">
 
 ## Economic Value
-<img src="../Results_from_Matlab/paper_BE_value.jpg" alt="BE Economic Value" width="50%">
+<img src="../Results_from_Matlab/paper_BE_value.jpg" alt="BE Economic Value" width="60%">
 
 ## Farm Output
-<img src="../Results_from_Matlab/paper_main_farm.jpg" alt="Main Farm Output" width="50%">
+<img src="../Results_from_Matlab/paper_main_farm.jpg" alt="Main Farm Output" width="60%">
 
 ## Labor Usage
-<img src="../Results_from_Matlab/paper_main_labor.jpg" alt="Main Labor Usage" width="50%">
+<img src="../Results_from_Matlab/paper_main_labor.jpg" alt="Main Labor Usage" width="60%">
 
 ## Land Allocation
-<img src="../Results_from_Matlab/paper_main_land.jpg" alt="Main Land Allocation" width="50%">
+<img src="../Results_from_Matlab/paper_main_land.jpg" alt="Main Land Allocation" width="60%">
 
 ## Economic Value
-<img src="../Results_from_Matlab/paper_main_value.jpg" alt="Main Economic Value" width="50%">
+<img src="../Results_from_Matlab/paper_main_value.jpg" alt="Main Economic Value" width="60%">
 
 ## Farm Output
-<img src="../Results_from_Matlab/paper_market_farm.jpg" alt="Market Farm Output" width="50%">
+<img src="../Results_from_Matlab/paper_market_farm.jpg" alt="Market Farm Output" width="60%">
 
 ## Labor Usage
-<img src="../Results_from_Matlab/paper_market_labor.jpg" alt="Market Labor Usage" width="50%">
+<img src="../Results_from_Matlab/paper_market_labor.jpg" alt="Market Labor Usage" width="60%">
 
 ## Land Allocation
-<img src="../Results_from_Matlab/paper_market_land.jpg" alt="Market Land Allocation" width="50%">
+<img src="../Results_from_Matlab/paper_market_land.jpg" alt="Market Land Allocation" width="60%">
 
 ## Economic Value
-<img src="../Results_from_Matlab/paper_market_value.jpg" alt="Market Economic Value" width="50%">
+<img src="../Results_from_Matlab/paper_market_value.jpg" alt="Market Economic Value" width="60%">
 
 
 
