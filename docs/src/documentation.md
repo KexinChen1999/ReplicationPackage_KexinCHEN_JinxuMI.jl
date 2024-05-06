@@ -829,45 +829,42 @@ In this section, we verify the replication results by comparing our figures with
 
 
 
-**Farm Output**
-![BE Farm Output](../Results_from_Matlab/paper_BE_farm.jpg)
+## Farm Output
+<img src="../Results_from_Matlab/paper_BE_farm.jpg" alt="BE Farm Output" width="50%">
 
-**Labor Usage**
-![BE Labor Usage](../Results_from_Matlab/paper_BE_labor.jpg)
+## Labor Usage
+<img src="../Results_from_Matlab/paper_BE_labor.jpg" alt="BE Labor Usage" width="50%">
 
-**Land Allocation**
-![BE Land Allocation](../Results_from_Matlab/paper_BE_land.jpg)
+## Land Allocation
+<img src="../Results_from_Matlab/paper_BE_land.jpg" alt="BE Land Allocation" width="50%">
 
-**Economic Value**
-![BE Economic Value](../Results_from_Matlab/paper_BE_value.jpg)
+## Economic Value
+<img src="../Results_from_Matlab/paper_BE_value.jpg" alt="BE Economic Value" width="50%">
 
-### Main Simulation Results
+## Farm Output
+<img src="../Results_from_Matlab/paper_main_farm.jpg" alt="Main Farm Output" width="50%">
 
-**Farm Output**
-![Main Farm Output](../Results_from_Matlab/paper_main_farm.jpg)
+## Labor Usage
+<img src="../Results_from_Matlab/paper_main_labor.jpg" alt="Main Labor Usage" width="50%">
 
-**Labor Usage**
-![Main Labor Usage](../Results_from_Matlab/paper_main_labor.jpg)
+## Land Allocation
+<img src="../Results_from_Matlab/paper_main_land.jpg" alt="Main Land Allocation" width="50%">
 
-**Land Allocation**
-![Main Land Allocation](../Results_from_Matlab/paper_main_land.jpg)
+## Economic Value
+<img src="../Results_from_Matlab/paper_main_value.jpg" alt="Main Economic Value" width="50%">
 
-**Economic Value**
-![Main Economic Value](../Results_from_Matlab/paper_main_value.jpg)
+## Farm Output
+<img src="../Results_from_Matlab/paper_market_farm.jpg" alt="Market Farm Output" width="50%">
 
-### Market Effects
+## Labor Usage
+<img src="../Results_from_Matlab/paper_market_labor.jpg" alt="Market Labor Usage" width="50%">
 
-**Farm Output**
-![Market Farm Output](../Results_from_Matlab/paper_market_farm.jpg)
+## Land Allocation
+<img src="../Results_from_Matlab/paper_market_land.jpg" alt="Market Land Allocation" width="50%">
 
-**Labor Usage**
-![Market Labor Usage](../Results_from_Matlab/paper_market_labor.jpg)
+## Economic Value
+<img src="../Results_from_Matlab/paper_market_value.jpg" alt="Market Economic Value" width="50%">
 
-**Land Allocation**
-![Market Land Allocation](../Results_from_Matlab/paper_market_land.jpg)
-
-**Economic Value**
-![Market Economic Value](../Results_from_Matlab/paper_market_value.jpg)
 
 
 
