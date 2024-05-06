@@ -793,7 +793,7 @@ In this section, we verify the replication results by comparing our figures with
 ![BE Farm Size Distribution](BE_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Farm Size Distribution from Matlab
-<img src="../Results_from_Matlab/paper_BE_farm.jpg" alt="BE Farm Output" width="80%">
+<img src="../Results_from_Matlab/paper_BE_farm.jpg" alt="BE Farm Output" width="70%">
 
 
 
@@ -801,7 +801,7 @@ In this section, we verify the replication results by comparing our figures with
 ![BE Hired Labor per Hectare Distribution](BE_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Hired Labor per Hectare Distribution from Matlab
-<img src="../Results_from_Matlab/paper_BE_labor.jpg" alt="BE Labor Usage" width="80%">
+<img src="../Results_from_Matlab/paper_BE_labor.jpg" alt="BE Labor Usage" width="65%">
 
 
 
@@ -809,7 +809,7 @@ In this section, we verify the replication results by comparing our figures with
 ![BE Land Size Distribution](BE_Land%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Land Size Distribution from Matlab
-<img src="../Results_from_Matlab/paper_BE_land.jpg" alt="BE Land Allocation" width="80%">
+<img src="../Results_from_Matlab/paper_BE_land.jpg" alt="BE Land Allocation" width="75%">
 
 
 
