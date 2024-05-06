@@ -829,6 +829,48 @@ In this section, we verify the replication results by comparing our figures with
 
 
 
+**Farm Output**
+![BE Farm Output](../Results_from_Matlab/paper_BE_farm.jpg)
+
+**Labor Usage**
+![BE Labor Usage](../Results_from_Matlab/paper_BE_labor.jpg)
+
+**Land Allocation**
+![BE Land Allocation](../Results_from_Matlab/paper_BE_land.jpg)
+
+**Economic Value**
+![BE Economic Value](../Results_from_Matlab/paper_BE_value.jpg)
+
+### Main Simulation Results
+
+**Farm Output**
+![Main Farm Output](../Results_from_Matlab/paper_main_farm.jpg)
+
+**Labor Usage**
+![Main Labor Usage](../Results_from_Matlab/paper_main_labor.jpg)
+
+**Land Allocation**
+![Main Land Allocation](../Results_from_Matlab/paper_main_land.jpg)
+
+**Economic Value**
+![Main Economic Value](../Results_from_Matlab/paper_main_value.jpg)
+
+### Market Effects
+
+**Farm Output**
+![Market Farm Output](../Results_from_Matlab/paper_market_farm.jpg)
+
+**Labor Usage**
+![Market Labor Usage](../Results_from_Matlab/paper_market_labor.jpg)
+
+**Land Allocation**
+![Market Land Allocation](../Results_from_Matlab/paper_market_land.jpg)
+
+**Economic Value**
+![Market Economic Value](../Results_from_Matlab/paper_market_value.jpg)
+
+
+
 
 
 # Conclusion
