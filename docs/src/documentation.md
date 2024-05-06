@@ -593,7 +593,7 @@ PIc_vec = (1 .- GAMMA .* (1 .- ALPHA)) .* Pc .* yc_vec .* (phi_vec .^ (1 .- GAMM
 
 
 ## Market-based Land Reform
-Third, we focus on the Market-based Land Reform (LR_market) part and define the `LR_market_eval` function:
+Third, we focus on the Market-based Land Reform (LR_market) part, using the data `BE_values_julia.mat` calculated in the previous sector, and define the `LR_market_eval` function:
 
 ```julia
 function LR_market_eval(x, A)
@@ -771,6 +771,7 @@ f = [f1, f2]
 
 
 # Comparison with the original results
+In this section, we verify the replication results by comparing our figures with those in the original paper.
 
 ## BE Farm Size Distribution
 ![BE Farm Size Distribution](BE_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
