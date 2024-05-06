@@ -895,6 +895,7 @@ In this section, we verify the replication results by comparing our figures with
 
 
 # Conclusion
+In the original Matlab, the author used the “fsolve()" function to find the numerical solutions of this system of nonlinear equations, thus obtaining the distribution of various variables under optimal conditions. However, in Julia, we use the "nlsolve()" function to solve it. The differences in farm distribution may stem from this. Other graphs and parameters in the output are consistent with those in the original paper.
 
 
 
