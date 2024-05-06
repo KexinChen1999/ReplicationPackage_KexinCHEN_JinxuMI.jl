@@ -510,6 +510,7 @@ f = [f1, f2]
 
 ![BE_Farm Size Distribution Across Specified Bins](/docs/src/BE_Farm Size Distribution Across Specified Bins.png)
 
+![Farm Size Distribution](BE_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 
 
