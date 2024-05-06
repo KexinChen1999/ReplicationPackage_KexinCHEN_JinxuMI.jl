@@ -244,8 +244,272 @@ f2 = (sum(of_vec .* nf_vec) / N) + (sum(oc_vec .* nc_vec) / N) - Nw  # Labor mar
 f = [f1, f2]  # Construct the vector f from f1 and f2
 ```
 
+Production choices for all individuals (including non-operators)
+```julia
+# Farm size vector (land input)
+l_vec = of_vec .* lf_vec + oc_vec .* lc_vec
+
+# Hired labor vector
+n_vec = of_vec .* nf_vec + oc_vec .* nc_vec
+
+# Output vector
+y_vec = of_vec .* yf_vec + oc_vec .* yc_vec
+```
+
+
+Calculate distributions and statistics of interest
+```julia
+# Truncated distribution - conditional on operating (to calculate averages across active units)
+Indic = oc_vec .+ of_vec
+COND_distr = Indic ./ sum(Indic)
+
+# Average Farm Size (AFS) - across operators
+l_value = sum(COND_distr .* lf_vec .* of_vec) + sum(COND_distr .* lc_vec .* oc_vec)
+AFS_BE = l_value
+
+# Landless share
+landless_BE = Nw
+
+# parameters used to generate the size distribution (bins)
+bin1 = 1;    
+bin2 = 2;
+bin3 = 5; 
+bin4 = 7;
+bin5 = 10;
+bin6 = 15;
+
+
+# Size distribution (culmulative percentage of land/farms) - find farms (operators) in each of the above bins
+lhat1in = findfirst(x -> x > bin1, l_vec)
+lhat2in = findfirst(x -> x > bin2, l_vec)
+lhat3in = findfirst(x -> x > bin3, l_vec)
+lhat4in = findfirst(x -> x > bin4, l_vec)
+lhat5in = findfirst(x -> x > bin5, l_vec)
+lhat6in = findfirst(x -> x > bin6, l_vec)
+
+# Check if the last bin is empty
+if isnothing(lhat6in)
+    
+    # Farm-Size Distribution over rest of bins
+    farm1 = sum(COND_distr[1:lhat1in-1])
+    farm2 = sum(COND_distr[lhat1in:lhat2in-1])
+    farm3 = sum(COND_distr[lhat2in:lhat3in-1])
+    farm4 = sum(COND_distr[lhat3in:lhat4in-1])
+    farm5 = sum(COND_distr[lhat4in:lhat5in])
+    farm6 = sum(COND_distr[lhat5in:N])
+    farm7 = 0
+    
+    # Distribution of Land over rest of bins
+    land1 = sum(l_vec[1:lhat1in-1] .* COND_distr[1:lhat1in-1]) / l_value
+    land2 = sum(l_vec[lhat1in:lhat2in-1] .* COND_distr[lhat1in:lhat2in-1]) / l_value
+    land3 = sum(l_vec[lhat2in:lhat3in-1] .* COND_distr[lhat2in:lhat3in-1]) / l_value
+    land4 = sum(l_vec[lhat3in:lhat4in-1] .* COND_distr[lhat3in:lhat4in-1]) / l_value
+    land5 = sum(l_vec[lhat4in:lhat5in] .* COND_distr[lhat4in:lhat5in]) / l_value
+    land6 = sum(l_vec[lhat5in:N] .* COND_distr[lhat5in:N]) / l_value
+    land7 = 0
+    
+    # Distribution of Output over rest of bins
+    output1 = sum(y_vec[1:lhat1in-1] .* COND_distr[1:lhat1in-1])
+    # Similar for output2 to output6, as with MATLAB code
+    output7 = 0
+    
+    # Distribution of Hired Labor over rest of bins
+    hirelab1 = sum(n_vec[1:lhat1in-1] .* COND_distr[1:lhat1in-1])
+    # Similar for hirelab2 to hirelab6, as with MATLAB code
+    hirelab7 = 0
+
+else
+
+    # Farm-Size distribution of Farms over all bins
+    farm1 = sum(COND_distr[1:lhat1in-1])
+    farm2 = sum(COND_distr[lhat1in:lhat2in-1])
+    farm3 = sum(COND_distr[lhat2in:lhat3in-1])
+    farm4 = sum(COND_distr[lhat3in:lhat4in-1])
+    farm5 = sum(COND_distr[lhat4in:lhat5in-1])
+    farm6 = sum(COND_distr[lhat5in:lhat6in])
+    farm7 = sum(COND_distr[lhat6in:end])
+
+    # Distribution of Land over all bins
+    land1 = sum(l_vec[1:lhat1in-1] .* COND_distr[1:lhat1in-1]) / l_value
+    land2 = sum(l_vec[lhat1in:lhat2in-1] .* COND_distr[lhat1in:lhat2in-1]) / l_value
+    land3 = sum(l_vec[lhat2in:lhat3in-1] .* COND_distr[lhat2in:lhat3in-1]) / l_value
+    land4 = sum(l_vec[lhat3in:lhat4in-1] .* COND_distr[lhat3in:lhat4in-1]) / l_value
+    land5 = sum(l_vec[lhat4in:lhat5in-1] .* COND_distr[lhat4in:lhat5in-1]) / l_value
+    land6 = sum(l_vec[lhat5in:lhat6in] .* COND_distr[lhat5in:lhat6in]) / l_value
+    land7 = sum(l_vec[lhat6in:end] .* COND_distr[lhat6in:end]) / l_value
+
+    # Distribution of Output over all bins
+    output1 = sum(y_vec[1:lhat1in-1] .* COND_distr[1:lhat1in-1])
+    output2 = sum(y_vec[lhat1in:lhat2in-1] .* COND_distr[lhat1in:lhat2in-1])
+    output3 = sum(y_vec[lhat2in:lhat3in-1] .* COND_distr[lhat2in:lhat3in-1])
+    output4 = sum(y_vec[lhat3in:lhat4in-1] .* COND_distr[lhat3in:lhat4in-1])
+    output5 = sum(y_vec[lhat4in:lhat5in-1] .* COND_distr[lhat4in:lhat5in-1])
+    output6 = sum(y_vec[lhat5in:lhat6in] .* COND_distr[lhat5in:lhat6in])
+    output7 = sum(y_vec[lhat6in:end] .* COND_distr[lhat6in:end])
+
+    # Distribution of Hired Labor over all bins
+    hirelab1 = sum(n_vec[1:lhat1in-1] .* COND_distr[1:lhat1in-1])
+    hirelab2 = sum(n_vec[lhat1in:lhat2in-1] .* COND_distr[lhat1in:lhat2in-1])
+    hirelab3 = sum(n_vec[lhat2in:lhat3in-1] .* COND_distr[lhat2in:lhat3in-1])
+    hirelab4 = sum(n_vec[lhat3in:lhat4in-1] .* COND_distr[lhat3in:lhat4in-1])
+    hirelab5 = sum(n_vec[lhat4in:lhat5in-1] .* COND_distr[lhat4in:lhat5in-1])
+    hirelab6 = sum(n_vec[lhat5in:lhat6in] .* COND_distr[lhat5in:lhat6in])
+    hirelab7 = sum(n_vec[lhat6in:end] .* COND_distr[lhat6in:end])
+
+end
+```
+
+
+CONDITIONAL (ON OPERATING) DISTRIBUTIONS OVER SPECIFIED BINS
+```julia
+# Conditional (on operating) distribution of LAND INPUT across specified bins - note this is the same as land_pdf_model
+l_model = [land1, land2, land3, land4, land5, land6, land7]
+
+# Conditional (on operating) distribution of FARMS (also OPERATORS) across specified bins - note this is the same as farm_pdf_model
+f_model = [farm1, farm2, farm3, farm4, farm5, farm6, farm7]
+
+# Conditional (on operating) distribution of OUTPUT across specified bins
+y_model = [output1, output2, output3, output4, output5, output6, output7]
+
+# Conditional (on operating) distribution of HIRED LABOR across specified bins
+h_model = [hirelab1, hirelab2, hirelab3, hirelab4, hirelab5, hirelab6, hirelab7]
+
+# Conditional (on operating) distribution of HIRED LABOR+OPERATORS across specified bins
+n_model = h_model .+ f_model
+```
+
+Find active farm operators
+```julia
+indACTIVE = findall(x -> x == 1, Indic)
+```
+
+Distribution of TFP
+```julia
+# TFP of Active Units
+TFPf_vec = (A*KAPPAf.*s_vec).^(1-GAMMA)
+TFPc_vec = (A*KAPPAc.*s_vec).^(1-GAMMA)
+
+# Initialize of_vec with ones and then set specific elements to zero based on conditions
+#of_vec = ones(Int, N)
+#of_vec[1:g_lbar_Indic-1] .= 0
+#of_vec[g_ubar_Indic+1:N] .= 0
+
+# Initialize oc_vec with ones and then set specific elements to zero based on conditions
+#oc_vec = ones(Int, N)
+#oc_vec[1:g_ubar_Indic] .= 0
+
+TFP_vec = of_vec .* TFPf_vec .+ oc_vec .* TFPc_vec
+TFP_vec_ac = TFP_vec[indACTIVE]
+
+# Log-TFP of Active Units
+lTFP_vec_ac = log.(TFP_vec_ac)  # Use broadcasting with 'log.'
+
+# Compute the STD of log TFP (including the KAPPAs)
+STDlTFPac = std(lTFP_vec_ac)
+
+# Distribution of TFPR
+# TFPRs of all individuals
+TFPR_vec = phi_vec .^ (-(1 - GAMMA))
+
+# TFPRs of active farmers
+TFPR_vec_ac = TFPR_vec[indACTIVE]
+
+# log of active TFPRs
+lTFPR_vec_ac = log.(TFPR_vec_ac)  # Use broadcasting with 'log.'
+
+# Standard Deviation of active TFPRs
+println("\nSTD OF log-TFPR")
+STD_lTFPRac = std(lTFPR_vec_ac)
+VAR_lTFPR_model = STD_lTFPRac^2
+
+
+#Correlation of log(TFP)-log(TFPR) across active farms
+println("\nCORR of log-TFP AND log-TFPR")
+CORR_lTFP_lTFPR_model = cor(lTFP_vec_ac, lTFPR_vec_ac)
+println(CORR_lTFP_lTFPR_model)
+```
+
+OUTPUT / OUTPUT PER WORKER
+```julia
+# Aggregate Output per capita (since persons = workers, and only one sector this is also aggregate output per worker - and includes operators + hired workers)
+VApw_BE = (sum(oc_vec .* yc_vec) + sum(of_vec .* yf_vec)) / N
+
+# Aggregate Output Per Hired Worker
+VAphw = VApw_BE / Nw
+
+# Output per worker (hired + operators) in cash crops
+VApw_cash = Yc / LAB_c
+
+# Output per worker (hired + operators) in food crops
+VApw_food = Yf / LAB_f
+
+
+
+
+# Save the first set of variables to BE_var.mat
+vars_BE_var = Dict(
+    "g_vec" => g_vec,
+    "s_vec" => s_vec,
+    "phi_vec" => phi_vec,
+    "oc_vec" => oc_vec,
+    "of_vec" => of_vec,
+    "COND_distr" => COND_distr,
+    "lf_vec" => lf_vec,
+    "lc_vec" => lc_vec,
+    "l_value" => l_value,
+    "l_vec" => l_vec,
+    "Indic" => Indic,
+    "cdf_g" => cdf_g
+)
+matwrite("BE_var_julia.mat", vars_BE_var)
+
+# Save the second set of variables to BE_parameters.mat
+# Save the first set of variables to BE_var.mat
+vars_BE_var = Dict(
+    "g_vec" => g_vec,
+    "s_vec" => s_vec,
+    "phi_vec" => phi_vec,
+    "oc_vec" => oc_vec,
+    "of_vec" => of_vec,
+    "COND_distr" => COND_distr,
+    "lf_vec" => lf_vec,
+    "lc_vec" => lc_vec,
+    "l_value" => l_value,
+    "l_vec" => l_vec,
+    "Indic" => Indic,
+    "cdf_g" => cdf_g
+)
+matwrite("BE_var_julia.mat", vars_BE_var)
+
+# Save the second set of variables to BE_parameters.mat
+vars_BE_parameters = Dict(
+    "Cf" => Cf,
+    "Cc" => Cc,
+    "ALPHA" => ALPHA,
+    "GAMMA" => GAMMA,
+    "A" => A,
+    "KAPPAf" => KAPPAf,
+    "KAPPAc" => KAPPAc,
+    "Pc" => Pc,
+    "Pf" => Pf,
+    "N" => N,
+    "LN" => LN,
+    "hired_lab_sh" => hired_lab_sh
+)
+matwrite("BE_parameters_julia.mat", vars_BE_parameters)
+
+# Save the third set of variables to BE_values.mat
+vars_BE_values = Dict(
+    "VApw_BE" => VApw_BE,
+    "AFS_BE" => AFS_BE,
+    "landless_BE" => landless_BE
+)
+matwrite("BE_values_julia.mat", vars_BE_values)
+```
+
+
 ## Government-mandated Land Reform
-Second, we focus on the Government-mandated Land Reform (LR_main) part and define the `LR_main_eval` function:
+Second, we focus on the Government-mandated Land Reform (LR_main) part, using the data `BE_values_julia.mat` calculated in the previous sector, and define the `LR_main_eval` function:
 
 ```julia
 function LR_main_eval(x, A)
