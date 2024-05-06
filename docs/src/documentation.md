@@ -508,7 +508,7 @@ f = [f1, f2]
 
 # Comparison with the original results
 
-![BE_Farm Size Distribution Across Specified Bins](BE_Farm Size Distribution Across Specified Bins.png)
+![BE_Farm Size Distribution Across Specified Bins](/docs/src/BE_Farm Size Distribution Across Specified Bins.png)
 
 
 
