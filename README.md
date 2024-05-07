@@ -794,7 +794,7 @@ f = [f1, f2]
 ![BE Farm Size Distribution](docs/src/BE_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Farm Size Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_BE_farm.jpg" alt="BE Farm Output" width="60%">
+<img src="docs/Results_from_Matlab/paper_BE_farm.jpg" alt="BE Farm Output" width="80%">
 
 
 
@@ -802,7 +802,7 @@ f = [f1, f2]
 ![BE Hired Labor per Hectare Distribution](docs/src/BE_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Hired Labor per Hectare Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_BE_labor.jpg" alt="BE Labor Usage" width="60%">
+<img src="docs/Results_from_Matlab/paper_BE_labor.jpg" alt="BE Labor Usage" width="70%">
 
 
 
@@ -810,7 +810,7 @@ f = [f1, f2]
 ![BE Land Size Distribution](docs/src/BE_Land%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Land Size Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_BE_land.jpg" alt="BE Land Allocation" width="60%">
+<img src="docs/Results_from_Matlab/paper_BE_land.jpg" alt="BE Land Allocation" width="65%">
 
 
 
@@ -818,7 +818,7 @@ f = [f1, f2]
 ![BE Value Added per Worker Distribution](docs/src/BE_Value%20Added%20per%20Worker%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Value Added per Worker Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_BE_value.jpg" alt="BE Economic Value" width="60%">
+<img src="docs/Results_from_Matlab/paper_BE_value.jpg" alt="BE Economic Value" width="75%">
 
 
 
