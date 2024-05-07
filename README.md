@@ -5,8 +5,6 @@
 [![Build Status](https://github.com/KexinChen1999/ReplicationPackage_KexinCHEN_JinxuMI.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/KexinChen1999/ReplicationPackage_KexinCHEN_JinxuMI.jl/actions/workflows/CI.yml?query=branch%3Amain)
 
 
-# ReplicationPackage_KexinCHEN_JinxuMI
-
 Documentation for [ReplicationPackage_KexinCHEN_JinxuMI](https://github.com/KexinChen1999/ReplicationPackage_KexinCHEN_JinxuMI.jl).
 
 We replicate the simulations of the three models of land distribution after reform in the original paper[(Adamopoulos & Restuccia, 2020)](https://www.aeaweb.org/articles?id=10.1257/mac.20150222). 
