@@ -794,7 +794,7 @@ f = [f1, f2]
 ![BE Farm Size Distribution](docs/src/BE_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Farm Size Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_BE_farm.jpg" alt="BE Farm Output" width="80%">
+<img src="docs/Results_from_Matlab/paper_BE_farm.jpg" alt="BE Farm Output" width="65%">
 
 
 
@@ -802,7 +802,7 @@ f = [f1, f2]
 ![BE Hired Labor per Hectare Distribution](docs/src/BE_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Hired Labor per Hectare Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_BE_labor.jpg" alt="BE Labor Usage" width="70%">
+<img src="docs/Results_from_Matlab/paper_BE_labor.jpg" alt="BE Labor Usage" width="65%">
 
 
 
@@ -818,7 +818,7 @@ f = [f1, f2]
 ![BE Value Added per Worker Distribution](docs/src/BE_Value%20Added%20per%20Worker%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Value Added per Worker Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_BE_value.jpg" alt="BE Economic Value" width="75%">
+<img src="docs/Results_from_Matlab/paper_BE_value.jpg" alt="BE Economic Value" width="65%">
 
 
 
@@ -827,7 +827,7 @@ f = [f1, f2]
 ![LR Main Farm Size Distribution](docs/src/LR_main_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 ### LR Main Farm Size Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_main_farm.jpg" alt="Main Farm Output" width="60%">
+<img src="docs/Results_from_Matlab/paper_main_farm.jpg" alt="Main Farm Output" width="65%">
 
 
 
@@ -835,7 +835,7 @@ f = [f1, f2]
 ![LR Main Hired Labor per Hectare Distribution](docs/src/LR_main_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
 
 ### LR Main Hired Labor per Hectare Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_main_labor.jpg" alt="Main Labor Usage" width="60%">
+<img src="docs/Results_from_Matlab/paper_main_labor.jpg" alt="Main Labor Usage" width="65%">
 
 
 
@@ -843,7 +843,7 @@ f = [f1, f2]
 ![LR Main Land Size Distribution](docs/src/LR_main_Land%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 ###  LR Main Land Size Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_main_land.jpg" alt="Main Land Allocation" width="60%">
+<img src="docs/Results_from_Matlab/paper_main_land.jpg" alt="Main Land Allocation" width="65%">
 
 
 
@@ -852,7 +852,7 @@ f = [f1, f2]
 
 
 ### LR Main Value Added per Worker Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_main_value.jpg" alt="Main Economic Value" width="60%">
+<img src="docs/Results_from_Matlab/paper_main_value.jpg" alt="Main Economic Value" width="65%">
 
 
 
@@ -861,7 +861,7 @@ f = [f1, f2]
 ![LR Market Farm Size Distribution](docs/src/LR_market_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 ### LR Market Farm Size Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_market_farm.jpg" alt="Market Farm Output" width="60%">
+<img src="docs/Results_from_Matlab/paper_market_farm.jpg" alt="Market Farm Output" width="65%">
 
 
 
@@ -869,7 +869,7 @@ f = [f1, f2]
 ![LR Market Hired Labor per Hectare Distribution](docs/src/LR_market_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
 
 ### LR Market Hired Labor per Hectare Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_market_labor.jpg" alt="Market Labor Usage" width="60%">
+<img src="docs/Results_from_Matlab/paper_market_labor.jpg" alt="Market Labor Usage" width="65%">
 
 
 
@@ -880,7 +880,7 @@ f = [f1, f2]
 
 
 ### LR Market Land Size Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_market_land.jpg" alt="Market Land Allocation" width="60%">
+<img src="docs/Results_from_Matlab/paper_market_land.jpg" alt="Market Land Allocation" width="65%">
 
 
 ### LR Market Value Added per Worker Distribution from Julia
@@ -888,7 +888,7 @@ f = [f1, f2]
 
 
 ### LR Market Value Added per Worker Distribution from Matlab
-<img src="docs/Results_from_Matlab/paper_market_value.jpg" alt="Market Economic Value" width="60%">
+<img src="docs/Results_from_Matlab/paper_market_value.jpg" alt="Market Economic Value" width="65%">
 
 
 
