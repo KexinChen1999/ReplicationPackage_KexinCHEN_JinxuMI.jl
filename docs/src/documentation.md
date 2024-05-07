@@ -895,6 +895,9 @@ f = [f1, f2]
 
 
 # Conclusion
+<p align="justify"> Our replication works used Julia to replicate the parametric calibration in the structural part. In general, our results showed satisfactory results. In the structural estimation, we always get slightly different results in the distribution of farms, which may stem from the different functions of Julia and Matlab used in solving the nonlinear equations. All other parts of the structural estimation are perfectly matched, demonstrating the high quality of our replication work.  </p>
+
+<p align="justify">  The main contribution of our work is materializing the paper using open-source, free computer languages, such as Julia, instead of Matlab, which requires expensive licenses. It shows that high-quality research can be done by simply using free computing languages. It also reinforces the replicability of the original paper and the robustness of its results.  </p>
 
 
 
