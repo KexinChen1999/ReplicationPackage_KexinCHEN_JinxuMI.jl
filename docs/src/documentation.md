@@ -790,7 +790,7 @@ f = [f1, f2]
 
 ## Benchmark Economy
 ### BE Farm Size Distribution from Julia
-![BE Farm Size Distribution](BE_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
+![BE Farm Size Distribution](docs/src/BE_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Farm Size Distribution from Matlab
 <img src="../Results_from_Matlab/paper_BE_farm.jpg" alt="BE Farm Output" width="60%">
@@ -798,7 +798,7 @@ f = [f1, f2]
 
 
 ### BE Hired Labor per Hectare Distribution from Julia
-![BE Hired Labor per Hectare Distribution](BE_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
+![BE Hired Labor per Hectare Distribution](docs/src/BE_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Hired Labor per Hectare Distribution from Matlab
 <img src="../Results_from_Matlab/paper_BE_labor.jpg" alt="BE Labor Usage" width="60%">
@@ -806,7 +806,7 @@ f = [f1, f2]
 
 
 ### BE Land Size Distribution from Julia
-![BE Land Size Distribution](BE_Land%20Size%20Distribution%20Across%20Specified%20Bins.png)
+![BE Land Size Distribution](docs/src/BE_Land%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Land Size Distribution from Matlab
 <img src="../Results_from_Matlab/paper_BE_land.jpg" alt="BE Land Allocation" width="60%">
@@ -814,7 +814,7 @@ f = [f1, f2]
 
 
 ### BE Value Added per Worker Distribution from Julia
-![BE Value Added per Worker Distribution](BE_Value%20Added%20per%20Worker%20Distribution%20Across%20Specified%20Bins.png)
+![BE Value Added per Worker Distribution](docs/src/BE_Value%20Added%20per%20Worker%20Distribution%20Across%20Specified%20Bins.png)
 
 ### BE Value Added per Worker Distribution from Matlab
 <img src="../Results_from_Matlab/paper_BE_value.jpg" alt="BE Economic Value" width="60%">
@@ -823,7 +823,7 @@ f = [f1, f2]
 
 ## Government-mandated Land Reform
 ### LR Main Farm Size Distribution from Julia
-![LR Main Farm Size Distribution](LR_main_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
+![LR Main Farm Size Distribution](docs/src/LR_main_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 ### LR Main Farm Size Distribution from Matlab
 <img src="../Results_from_Matlab/paper_main_farm.jpg" alt="Main Farm Output" width="60%">
@@ -831,7 +831,7 @@ f = [f1, f2]
 
 
 ### LR Main Hired Labor per Hectare Distribution from Julia
-![LR Main Hired Labor per Hectare Distribution](LR_main_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
+![LR Main Hired Labor per Hectare Distribution](docs/src/LR_main_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
 
 ### LR Main Hired Labor per Hectare Distribution from Matlab
 <img src="../Results_from_Matlab/paper_main_labor.jpg" alt="Main Labor Usage" width="60%">
@@ -839,7 +839,7 @@ f = [f1, f2]
 
 
 ### LR Main Land Size Distribution from Julia
-![LR Main Land Size Distribution](LR_main_Land%20Size%20Distribution%20Across%20Specified%20Bins.png)
+![LR Main Land Size Distribution](docs/src/LR_main_Land%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 ###  LR Main Land Size Distribution from Matlab
 <img src="../Results_from_Matlab/paper_main_land.jpg" alt="Main Land Allocation" width="60%">
@@ -847,7 +847,7 @@ f = [f1, f2]
 
 
 ### LR Main Value Added per Worker Distribution from Julia
-![LR Main Value Added per Worker Distribution](LR_main_Value%20Added%20per%20Worker%20Distribution%20Across%20Specified%20Bins.png)
+![LR Main Value Added per Worker Distribution](docs/src/LR_main_Value%20Added%20per%20Worker%20Distribution%20Across%20Specified%20Bins.png)
 
 
 ### LR Main Value Added per Worker Distribution from Matlab
@@ -857,7 +857,7 @@ f = [f1, f2]
 
 ## Market-based Land Reform
 ### LR Market Farm Size Distribution from Julia
-![LR Market Farm Size Distribution](LR_market_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
+![LR Market Farm Size Distribution](docs/src/LR_market_Farm%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 ### LR Market Farm Size Distribution from Matlab
 <img src="../Results_from_Matlab/paper_market_farm.jpg" alt="Market Farm Output" width="60%">
@@ -865,7 +865,7 @@ f = [f1, f2]
 
 
 ### LR Market Hired Labor per Hectare Distribution from Julia
-![LR Market Hired Labor per Hectare Distribution](LR_market_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
+![LR Market Hired Labor per Hectare Distribution](docs/src/LR_market_Hired%20Labor%20per%20Hectare%20Distribution%20Across%20Specified%20Bins.png)
 
 ### LR Market Hired Labor per Hectare Distribution from Matlab
 <img src="../Results_from_Matlab/paper_market_labor.jpg" alt="Market Labor Usage" width="60%">
@@ -875,7 +875,7 @@ f = [f1, f2]
 
 
 ### LR Market Land Size Distribution from Julia
-![LR Market Land Size Distribution](LR_market_Land%20Size%20Distribution%20Across%20Specified%20Bins.png)
+![LR Market Land Size Distribution](docs/src/LR_market_Land%20Size%20Distribution%20Across%20Specified%20Bins.png)
 
 
 ### LR Market Land Size Distribution from Matlab
@@ -883,7 +883,7 @@ f = [f1, f2]
 
 
 ### LR Market Value Added per Worker Distribution from Julia
-![LR Market Value Added per Worker Distribution](LR_market_Value%20Added%20per%20Worker%20Distribution%20Across%20Specified%20Bins.png)
+![LR Market Value Added per Worker Distribution](docs/src/LR_market_Value%20Added%20per%20Worker%20Distribution%20Across%20Specified%20Bins.png)
 
 
 ### LR Market Value Added per Worker Distribution from Matlab
